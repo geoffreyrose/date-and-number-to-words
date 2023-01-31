@@ -11,11 +11,11 @@ class DateToWords
 {
     private string $language = 'en';
 
-    private array $ordinalWords = [];
-
     protected array $months = [];
 
     protected NumberFormatter $numberFormatter;
+
+    protected NumberFormatter $ordinalNumberFormatter;
 
     public function __construct()
     {
@@ -24,18 +24,20 @@ class DateToWords
 
     private function setTranslations(): void
     {
-        switch ($this->language) {
-            case 'es':
-                $this->numberFormatter = new NumberFormatter($this->language, NumberFormatter::SPELLOUT);
-                $this->ordinalWords = Lang\Es::ordinalWords();
-                $this->months = Lang\Es::months();
-                break;
-            default:
-                $this->numberFormatter = new NumberFormatter($this->language, NumberFormatter::SPELLOUT);
-                $this->ordinalWords = Lang\En::ordinalWords();
-                $this->months = Lang\En::months();
-                break;
+        try {
+            $this->numberFormatter = new NumberFormatter($this->language, NumberFormatter::SPELLOUT);
+            $this->ordinalNumberFormatter = new NumberFormatter($this->language, NumberFormatter::SPELLOUT);
+            $this->ordinalNumberFormatter->setTextAttribute(NumberFormatter::DEFAULT_RULESET, '%spellout-ordinal');
+        } catch (\Throwable $e) {
+            $this->numberFormatter = new NumberFormatter('en', NumberFormatter::SPELLOUT);
+            $this->ordinalNumberFormatter = new NumberFormatter('en', NumberFormatter::SPELLOUT);
+            $this->ordinalNumberFormatter->setTextAttribute(NumberFormatter::DEFAULT_RULESET, '%spellout-ordinal');
         }
+
+        $this->months = match ($this->language) {
+            'es' => Lang\Es::months(),
+            default => Lang\En::months(),
+        };
     }
 
     public function setLanguage(string $language): void
@@ -44,20 +46,32 @@ class DateToWords
         $this->setTranslations();
     }
 
-    public function words(Carbon|DateTime $date, string $format, bool $ordinal = false): String
+    public function words(Carbon|DateTime $date, string $format, bool $ordinal = false): string
     {
         return $date;
     }
 
-    public function year(int|Carbon|DateTime $year, bool $ordinal = false): String
+    public function year(int|Carbon|DateTime $year, bool $ordinal = false): string
     {
         try {
             if (is_numeric($year)) {
-                return $this->numberFormatter->format($year);
+                if ($ordinal) {
+                    return $this->ordinalNumberFormatter->format($year);
+                } else {
+                    return $this->numberFormatter->format($year);
+                }
             } elseif ($year instanceof Carbon) {
-                return $year->format('Y');
+                if ($ordinal) {
+                    return $this->ordinalNumberFormatter->format($year->format('Y'));
+                } else {
+                    return $this->numberFormatter->format($year->format('Y'));
+                }
             } elseif ($year instanceof DateTime) {
-                return $year->format('Y');
+                if ($ordinal) {
+                    return $this->ordinalNumberFormatter->format($year->format('Y'));
+                } else {
+                    return $this->numberFormatter->format($year->format('Y'));
+                }
             } else {
                 throw new InvalidUnitException('Provide a valid year integer, Carbon object or PHP DateTime object');
             }
@@ -66,26 +80,26 @@ class DateToWords
         }
     }
 
-    public function month(int|Carbon|DateTime $month, bool $ordinal = false): String
+    public function month(int|Carbon|DateTime $month, bool $ordinal = false): string
     {
         try {
             if (is_numeric($month) && $month >= 1 && $month <= 12) {
                 if ($ordinal) {
-                    return $this->ordinalWords[$month];
+                    return $this->ordinalNumberFormatter->format($month);
                 } else {
                     return $this->months[$month];
                 }
             } elseif ($month instanceof Carbon) {
                 if ($ordinal) {
-                    return $this->ordinalWords[$month->month];
+                    return $this->ordinalNumberFormatter->format($month->format('n'));
                 } else {
-                    return $month->format('F');
+                    return $this->months[$month->format('n')];
                 }
             } elseif ($month instanceof DateTime) {
                 if ($ordinal) {
-                    return $this->ordinalWords[$month->format('n')];
+                    return $this->ordinalNumberFormatter->format($month->format('n'));
                 } else {
-                    return $month->format('F');
+                    return $this->months[$month->format('n')];
                 }
             } else {
                 throw new InvalidUnitException('Provide a valid month integer (1-12), Carbon object or PHP DateTime object');
@@ -95,24 +109,24 @@ class DateToWords
         }
     }
 
-    public function day(int|Carbon|DateTime $day, bool $ordinal = false): String
+    public function day(int|Carbon|DateTime $day, bool $ordinal = false): string
     {
         try {
             if (is_numeric($day) && $day >= 1 && $day <= 31) {
                 if ($ordinal) {
-                    return $this->ordinalWords[$day];
+                    return $this->ordinalNumberFormatter->format($day);
                 } else {
                     return $this->numberFormatter->format($day);
                 }
             } elseif ($day instanceof Carbon) {
                 if ($ordinal) {
-                    return $this->ordinalWords[$day->format('j')];
+                    return $this->ordinalNumberFormatter->format($day->format('j'));
                 } else {
                     return $this->numberFormatter->format($day->format('j'));
                 }
             } elseif ($day instanceof DateTime) {
                 if ($ordinal) {
-                    return $this->ordinalWords[$day->format('j')];
+                    return $this->ordinalNumberFormatter->format($day->format('j'));
                 } else {
                     return $this->numberFormatter->format($day->format('j'));
                 }
@@ -124,24 +138,24 @@ class DateToWords
         }
     }
 
-    public function hour(int|Carbon|DateTime $hour, bool $ordinal = false): String
+    public function hour(int|Carbon|DateTime $hour, bool $ordinal = false): string
     {
         try {
             if (is_numeric($hour) && $hour >= 0 && $hour <= 23) {
                 if ($ordinal) {
-                    return $this->ordinalWords[$hour];
+                    return $this->ordinalNumberFormatter->format($hour);
                 } else {
                     return $this->numberFormatter->format($hour);
                 }
             } elseif ($hour instanceof Carbon) {
                 if ($ordinal) {
-                    return $this->ordinalWords[$hour->format('g')];
+                    return $this->ordinalNumberFormatter->format($hour->format('g'));
                 } else {
                     return $this->numberFormatter->format($hour->format('g'));
                 }
             } elseif ($hour instanceof DateTime) {
                 if ($ordinal) {
-                    return $this->ordinalWords[$hour->format('g')];
+                    return $this->ordinalNumberFormatter->format($hour->format('g'));
                 } else {
                     return $this->numberFormatter->format($hour->format('g'));
                 }
@@ -153,24 +167,24 @@ class DateToWords
         }
     }
 
-    public function minute(int|Carbon|DateTime $minute, bool $ordinal = false): String
+    public function minute(int|Carbon|DateTime $minute, bool $ordinal = false): string
     {
         try {
             if (is_numeric($minute) && $minute >= 0 && $minute <= 59) {
                 if ($ordinal) {
-                    return $this->ordinalWords[$minute];
+                    return $this->ordinalNumberFormatter->format($minute);
                 } else {
                     return $this->numberFormatter->format($minute);
                 }
             } elseif ($minute instanceof Carbon) {
                 if ($ordinal) {
-                    return $this->ordinalWords[$minute->format('i')];
+                    return $this->ordinalNumberFormatter->format($minute->format('i'));
                 } else {
                     return $this->numberFormatter->format($minute->format('i'));
                 }
             } elseif ($minute instanceof DateTime) {
                 if ($ordinal) {
-                    return $this->ordinalWords[$minute->format('i')];
+                    return $this->ordinalNumberFormatter->format($minute->format('i'));
                 } else {
                     return $this->numberFormatter->format($minute->format('i'));
                 }
@@ -182,24 +196,24 @@ class DateToWords
         }
     }
 
-    public function second(int|Carbon|DateTime $second, bool $ordinal = false): String
+    public function second(int|Carbon|DateTime $second, bool $ordinal = false): string
     {
         try {
             if (is_numeric($second) && $second >= 0 && $second <= 59) {
                 if ($ordinal) {
-                    return $this->ordinalWords[$second];
+                    return $this->ordinalNumberFormatter->format($second);
                 } else {
                     return $this->numberFormatter->format($second);
                 }
             } elseif ($second instanceof Carbon) {
                 if ($ordinal) {
-                    return $this->ordinalWords[$second->format('j')];
+                    return $this->ordinalNumberFormatter->format($second->format('j'));
                 } else {
                     return $this->numberFormatter->format($second->format('j'));
                 }
             } elseif ($second instanceof DateTime) {
                 if ($ordinal) {
-                    return $this->ordinalWords[$second->format('j')];
+                    return $this->ordinalNumberFormatter->format($second->format('j'));
                 } else {
                     return $this->numberFormatter->format($second->format('j'));
                 }

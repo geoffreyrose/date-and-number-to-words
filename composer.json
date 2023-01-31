@@ -1,0 +1,35 @@
+{
+    "name": "geoffreyrose/date-to-words",
+    "description": "Converts PHP Dates or Carbon objects to words",
+    "keywords": ["Carbon", "PHP Dates", "PHP Dates To Words" ],
+    "autoload": {
+        "psr-4": {
+            "DateToWords\\": "src/DateToWords"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "Tests/"
+        }
+    },
+    "require": {
+        "php": "^8.0",
+        "nesbot/carbon": "^2.66",
+        "ext-intl": "*"
+    },
+    "config": {
+        "discard-changes": true
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.5",
+        "php-coveralls/php-coveralls": "^2.5"
+    },
+    "scripts": {
+        "post-update-cmd": [
+            "bash tools/setup.sh"
+        ],
+        "post-install-cmd": [
+            "bash tools/setup.sh"
+        ]
+    }
+}

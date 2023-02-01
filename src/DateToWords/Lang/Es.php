@@ -7,7 +7,6 @@ class Es implements LanguageInterface
     public static function months(): array
     {
         return [
-
             1 => 'Enero',
             2 => 'Febrero',
             3 => 'Marzo',

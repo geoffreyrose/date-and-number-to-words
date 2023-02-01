@@ -35,7 +35,11 @@ class DateToWords
         }
 
         $this->months = match ($this->language) {
+            'de' => Lang\De::months(),
             'es' => Lang\Es::months(),
+            'fr' => Lang\Fr::months(),
+            'it' => Lang\It::months(),
+            'pt' => Lang\Pt::months(),
             default => Lang\En::months(),
         };
     }
@@ -46,9 +50,30 @@ class DateToWords
         $this->setTranslations();
     }
 
-    public function words(Carbon|DateTime $date, string $format, bool $ordinal = false): string
+    public function words(Carbon|DateTime $date, string $format): string
     {
-        return $date;
+        $formatArray = preg_split('/([\W])/', $format, -1, PREG_SPLIT_DELIM_CAPTURE);
+        $string = '';
+
+        foreach ($formatArray as $part) {
+            match ($part) {
+                'Yo' => $string .= $this->year($date, true),
+                'Y' => $string .= $this->year($date),
+                'Mo' => $string .= $this->month($date, true),
+                'M' => $string .= $this->month($date),
+                'Do' => $string .= $this->day($date, true),
+                'D' => $string .= $this->day($date),
+                'Ho' => $string .= $this->hour($date, true),
+                'H' => $string .= $this->hour($date),
+                'Io' => $string .= $this->minute($date, true),
+                'I' => $string .= $this->minute($date),
+                'So' => $string .= $this->second($date, true),
+                'S' => $string .= $this->second($date),
+                default => $string .= $part,
+            };
+        }
+
+        return $string;
     }
 
     public function year(int|Carbon|DateTime $year, bool $ordinal = false): string

@@ -1,16 +1,16 @@
 <div style="text-align: center;"> 
 
-[![Latest Stable Version](https://img.shields.io/packagist/v/geoffreyrose/date-to-words?style=flat-square)](https://packagist.org/packages/geoffreyrose/date-to-words)
-[![Total Downloads](https://img.shields.io/packagist/dt/geoffreyrose/date-to-words?style=flat-square)](https://packagist.org/packages/geoffreyrose/date-to-words/stats)
-[![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/geoffreyrose/date-to-words/main.yml?branch=master&style=flat-square)](https://github.com/geoffreyrose/date-to-words/actions?query=branch%3Amain)
-[![Codecov branch](https://img.shields.io/codecov/c/gh/geoffreyrose/date-to-words/main?style=flat-square)](https://app.codecov.io/gh/geoffreyrose/date-to-words/branch/main)
-[![License](https://img.shields.io/github/license/geoffreyrose/date-to-words?style=flat-square)](https://github.com/geoffreyrose/date-to-words/blob/main/License)
+[![Latest Stable Version](https://img.shields.io/packagist/v/geoffreyrose/date-and-number-to-words?style=flat-square)](https://packagist.org/packages/geoffreyrose/date-and-number-to-words)
+[![Total Downloads](https://img.shields.io/packagist/dt/geoffreyrose/date-and-number-to-words?style=flat-square)](https://packagist.org/packages/geoffreyrose/date-and-number-to-words/stats)
+[![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/geoffreyrose/date-and-number-to-words/main.yml?branch=master&style=flat-square)](https://github.com/geoffreyrose/date-and-number-to-words/actions?query=branch%3Amain)
+[![Codecov branch](https://img.shields.io/codecov/c/gh/geoffreyrose/date-and-number-to-words/main?style=flat-square)](https://app.codecov.io/gh/geoffreyrose/date-and-number-to-words/branch/main)
+[![License](https://img.shields.io/github/license/geoffreyrose/date-and-number-to-words?style=flat-square)](https://github.com/geoffreyrose/date-and-number-to-words/blob/main/License)
 </div>
 
-# Date To Words
-An easy-to-use PHP package that turns dates into words. 
+# Date and Number To Words
+An easy-to-use PHP package that turns dates and numbers into words. 
 
-Each part of the date can also be turned into ordinal word. (first, second, third)
+Numbers and each part of the date can additionally be turned into ordinal word. (first, second, third)
 
 
 
@@ -22,23 +22,23 @@ Each part of the date can also be turned into ordinal word. (first, second, thir
 
 #### With Composer
 ```
-$ composer require geoffreyrose/date-to-words
+$ composer require geoffreyrose/date-and-number-to-words
 ```
 
 ```php
 <?php
 require 'vendor/autoload.php';
 
-use DateToWords\DateToWords;
+use DateAndNumberToWords\DateAndNumberToWords;
 ```
 
 #### Without Composer
 
 ```php
 <?php
-require 'path/to/geoffreyrose/DateToWords.php';
+require 'path/to/geoffreyrose/DateAndNumberToWords.php';
 
-use DateToWords\DateToWords;
+use DateAndNumberToWords\DateAndNumberToWords;
 ```
 
 
@@ -51,7 +51,7 @@ You can pass a Carbon object, DateTime object or a integer for all methods
 ```php
 public function words(Carbon|DateTime $date, string $format): string
 
-$words = new DateToWords();
+$words = new DateAndNumberToWords();
 $carbon = Carbon::create(2023, 4, 1);
 
 $words->words($carbon, 'Do of M, Y');
@@ -80,7 +80,7 @@ S   :  Second - second($second)
 ```php
 public function year(int|Carbon|DateTime $year, bool $ordinal = false): string
 
-$words = new DateToWords();
+$words = new DateAndNumberToWords();
 $carbon = Carbon::create(2023, 4, 1);
 
 $dateTime = new DateTime();
@@ -107,7 +107,7 @@ $words->year(2023);
 ```php
 public function month(int|Carbon|DateTime $month, bool $ordinal = false): string
 
-$words = new DateToWords();
+$words = new DateAndNumberToWords();
 
 $words->month(4, true);
 // fourth
@@ -121,7 +121,7 @@ $words->month(4);
 ```php
 public function day(int|Carbon|DateTime $day, bool $ordinal = false): string
 
-$words = new DateToWords();
+$words = new DateAndNumberToWords();
 
 $words->day(7, true);
 // seventh
@@ -135,7 +135,7 @@ $words->day(7);
 ```php
 public function hour(int|Carbon|DateTime $hour, bool $ordinal = false): string
 
-$words = new DateToWords();
+$words = new DateAndNumberToWords();
 
 $words->hour(7, true);
 // seventh
@@ -149,7 +149,7 @@ $words->hour(7);
 ```php
 public function minute(int|Carbon|DateTime $minute, bool $ordinal = false): string
 
-$words = new DateToWords();
+$words = new DateAndNumberToWords();
 
 $words->minute(7, true);
 // seventh
@@ -163,7 +163,7 @@ $words->minute(7);
 ```php
 public function second(int|Carbon|DateTime $second, bool $ordinal = false): string
 
-$words = new DateToWords();
+$words = new DateAndNumberToWords();
 
 $words->second(7, true);
 // seventh
@@ -171,6 +171,29 @@ $words->second(7, true);
 $words->second(7);
 // seven
 ```
+
+### Number to Words
+
+Must to between 999999999999999999 and -999999999999999999
+
+```php
+public function number(int $number, bool $ordinal = false): string
+
+$words = new DateAndNumberToWords();
+
+$words->number(7, true);
+// seventh
+
+$words->number(7);
+// seven
+
+$words->number(999999999999999999)
+// nine hundred ninety-nine quadrillion nine hundred ninety-nine trillion nine hundred ninety-nine billion nine hundred ninety-nine million nine hundred ninety-nine thousand nine hundred ninety-nine
+
+```
+
+
+
 
 ### Set Language
 
@@ -184,7 +207,7 @@ For months, translations are handled by Carbon, which has translations for 270+ 
 ```php
 public function setLanguage(string $language): void
 
-$words = new DateToWords();
+$words = new DateAndNumberToWords();
 
 $words->setLanguage('en');
 

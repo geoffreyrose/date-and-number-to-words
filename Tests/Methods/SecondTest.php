@@ -1,14 +1,17 @@
 <?php
 
+namespace Tests\Methods;
+
 use Carbon\Carbon;
-use DateToWords\DateToWords;
+use DateAndNumberToWords\DateAndNumberToWords;
+use DateTime;
 use PHPUnit\Framework\TestCase;
 
 class SecondTest extends TestCase
 {
     public function testSecondInt()
     {
-        $words = new DateToWords();
+        $words = new DateAndNumberToWords();
 
         $this->assertEquals('zero', $words->second(0));
         $this->assertNotEquals('zeroth', $words->second(0));
@@ -16,7 +19,7 @@ class SecondTest extends TestCase
 
     public function testSecondOrdinalInt()
     {
-        $words = new DateToWords();
+        $words = new DateAndNumberToWords();
 
         $this->assertNotEquals('zero', $words->second(0, true));
         $this->assertEquals('zeroth', $words->second(0, true));
@@ -24,7 +27,7 @@ class SecondTest extends TestCase
 
     public function testSecondCarbon()
     {
-        $words = new DateToWords();
+        $words = new DateAndNumberToWords();
         $carbon = Carbon::create(1999, 1, 24, 4, 42, 0);
 
         $this->assertEquals('zero', $words->second($carbon));
@@ -33,7 +36,7 @@ class SecondTest extends TestCase
 
     public function testSecondOrdinalCarbon()
     {
-        $words = new DateToWords();
+        $words = new DateAndNumberToWords();
         $carbon = Carbon::create(1999, 1, 24, 4, 42, 0);
 
         $this->assertNotEquals('zero', $words->second($carbon, true));
@@ -42,7 +45,7 @@ class SecondTest extends TestCase
 
     public function testSecondDateTime()
     {
-        $words = new DateToWords();
+        $words = new DateAndNumberToWords();
         $dateTime = new DateTime();
         $dateTime->setDate(1999, 1, 24)->setTime(4, 42, 0);
 
@@ -52,7 +55,7 @@ class SecondTest extends TestCase
 
     public function testSecondOrdinalDateTime()
     {
-        $words = new DateToWords();
+        $words = new DateAndNumberToWords();
         $dateTime = new DateTime();
         $dateTime->setDate(1999, 1, 24)->setTime(4, 42, 0);
 
@@ -62,7 +65,7 @@ class SecondTest extends TestCase
 
     public function testInvalidArgumentException()
     {
-        $words = new DateToWords();
+        $words = new DateAndNumberToWords();
 
         $this->assertEquals('Provide a valid second integer (0-59), Carbon object or PHP DateTime object', $words->second(66));
         $this->assertNotEquals('sixty-six', $words->second(66));

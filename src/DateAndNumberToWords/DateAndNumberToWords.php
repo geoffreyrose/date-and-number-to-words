@@ -1,14 +1,14 @@
 <?php
 
-namespace DateToWords;
+namespace DateAndNumberToWords;
 
 use Carbon\Carbon;
+use DateAndNumberToWords\Exceptions\InvalidLanguageException;
+use DateAndNumberToWords\Exceptions\InvalidUnitException;
 use DateTime;
-use DateToWords\Exceptions\InvalidLanguageException;
-use DateToWords\Exceptions\InvalidUnitException;
 use NumberFormatter;
 
-class DateToWords
+class DateAndNumberToWords
 {
     private string $language = 'en';
 
@@ -233,6 +233,23 @@ class DateToWords
                 }
             } else {
                 throw new InvalidUnitException('Provide a valid second integer (0-59), Carbon object or PHP DateTime object');
+            }
+        } catch (InvalidUnitException $e) {
+            return $e->getMessage();
+        }
+    }
+
+    public function number(int $number, bool $ordinal = false): string
+    {
+        try {
+            if ($number <= 999999999999999999 && $number >= -999999999999999999) {
+                if ($ordinal) {
+                    return $this->ordinalNumberFormatter->format($number);
+                } else {
+                    return $this->numberFormatter->format($number);
+                }
+            } else {
+                throw new InvalidUnitException('Provide a valid integer. Must to between 999999999999999999 and -999999999999999999');
             }
         } catch (InvalidUnitException $e) {
             return $e->getMessage();

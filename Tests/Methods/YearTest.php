@@ -1,14 +1,17 @@
 <?php
 
+namespace Tests\Methods;
+
 use Carbon\Carbon;
-use DateToWords\DateToWords;
+use DateAndNumberToWords\DateAndNumberToWords;
+use DateTime;
 use PHPUnit\Framework\TestCase;
 
 class YearTest extends TestCase
 {
     public function testYearInt()
     {
-        $words = new DateToWords();
+        $words = new DateAndNumberToWords();
 
         $this->assertEquals('one thousand nine hundred ninety-nine', $words->year(1999));
         $this->assertNotEquals('one thousand nine hundred ninety-ninth', $words->year(1999));
@@ -16,7 +19,7 @@ class YearTest extends TestCase
 
     public function testYearOrdinalInt()
     {
-        $words = new DateToWords();
+        $words = new DateAndNumberToWords();
 
         $this->assertNotEquals('one thousand nine hundred ninety-nine', $words->year(1999, true));
         $this->assertEquals('one thousand nine hundred ninety-ninth', $words->year(1999, true));
@@ -24,7 +27,7 @@ class YearTest extends TestCase
 
     public function testYearCarbon()
     {
-        $words = new DateToWords();
+        $words = new DateAndNumberToWords();
         $carbon = Carbon::create(1999, 1, 1);
 
         $this->assertEquals('one thousand nine hundred ninety-nine', $words->year($carbon));
@@ -33,7 +36,7 @@ class YearTest extends TestCase
 
     public function testYearOrdinalCarbon()
     {
-        $words = new DateToWords();
+        $words = new DateAndNumberToWords();
         $carbon = Carbon::create(1999, 1, 1);
 
         $this->assertNotEquals('one thousand nine hundred ninety-nine', $words->year($carbon, true));
@@ -42,7 +45,7 @@ class YearTest extends TestCase
 
     public function testYearDateTime()
     {
-        $words = new DateToWords();
+        $words = new DateAndNumberToWords();
         $dateTime = new DateTime();
         $dateTime->setDate(1999, 1, 1);
 
@@ -52,7 +55,7 @@ class YearTest extends TestCase
 
     public function testYearOrdinalDateTime()
     {
-        $words = new DateToWords();
+        $words = new DateAndNumberToWords();
         $dateTime = new DateTime();
         $dateTime->setDate(1999, 1, 1);
 
@@ -62,7 +65,7 @@ class YearTest extends TestCase
 
     public function testInvalidArgumentException()
     {
-        $words = new DateToWords();
+        $words = new DateAndNumberToWords();
 
         $this->assertEquals('Provide a valid year integer, Carbon object or PHP DateTime object', $words->year(999999999999999999 + 1));
         $this->assertNotEquals('1,000,000,000,000,000,000', $words->month(999999999999999999 + 1));

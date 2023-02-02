@@ -1,14 +1,16 @@
 <?php
 
-use DateToWords\DateToWords;
-use DateToWords\Exceptions\InvalidLanguageException;
+namespace Tests\Methods;
+
+use DateAndNumberToWords\DateAndNumberToWords;
+use DateAndNumberToWords\Exceptions\InvalidLanguageException;
 use PHPUnit\Framework\TestCase;
 
 class SetLanguageTest extends TestCase
 {
     public function testSetLanguage()
     {
-        $words = new DateToWords();
+        $words = new DateAndNumberToWords();
         $words->setLanguage('de');
 
         $this->assertEquals('zwei­und­vierzig', $words->minute(42));
@@ -17,7 +19,7 @@ class SetLanguageTest extends TestCase
 
     public function testSetLanguageInvalid()
     {
-        $words = new DateToWords();
+        $words = new DateAndNumberToWords();
         $this->expectException(InvalidLanguageException::class);
         $words->setLanguage('abc');
     }

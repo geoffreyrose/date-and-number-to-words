@@ -1,14 +1,17 @@
 <?php
 
+namespace Tests\Methods;
+
 use Carbon\Carbon;
-use DateToWords\DateToWords;
+use DateAndNumberToWords\DateAndNumberToWords;
+use DateTime;
 use PHPUnit\Framework\TestCase;
 
 class HourTest extends TestCase
 {
     public function testHourInt()
     {
-        $words = new DateToWords();
+        $words = new DateAndNumberToWords();
 
         $this->assertEquals('six', $words->hour(6));
         $this->assertNotEquals('sixth', $words->hour(6));
@@ -16,7 +19,7 @@ class HourTest extends TestCase
 
     public function testHourOrdinalInt()
     {
-        $words = new DateToWords();
+        $words = new DateAndNumberToWords();
 
         $this->assertNotEquals('six', $words->hour(6, true));
         $this->assertEquals('sixth', $words->hour(6, true));
@@ -24,7 +27,7 @@ class HourTest extends TestCase
 
     public function testHourCarbon()
     {
-        $words = new DateToWords();
+        $words = new DateAndNumberToWords();
         $carbon = Carbon::create(1999, 1, 24, 6, 42, 0);
 
         $this->assertEquals('six', $words->hour($carbon));
@@ -33,7 +36,7 @@ class HourTest extends TestCase
 
     public function testHourOrdinalCarbon()
     {
-        $words = new DateToWords();
+        $words = new DateAndNumberToWords();
         $carbon = Carbon::create(1999, 1, 24, 6, 42, 0);
 
         $this->assertNotEquals('six', $words->hour($carbon, true));
@@ -42,7 +45,7 @@ class HourTest extends TestCase
 
     public function testHourDateTime()
     {
-        $words = new DateToWords();
+        $words = new DateAndNumberToWords();
         $dateTime = new DateTime();
         $dateTime->setDate(1999, 1, 24)->setTime(6, 42, 0);
 
@@ -52,7 +55,7 @@ class HourTest extends TestCase
 
     public function testHourOrdinalDateTime()
     {
-        $words = new DateToWords();
+        $words = new DateAndNumberToWords();
         $dateTime = new DateTime();
         $dateTime->setDate(1999, 1, 24)->setTime(6, 42, 0);
 
@@ -62,7 +65,7 @@ class HourTest extends TestCase
 
     public function testInvalidArgumentException()
     {
-        $words = new DateToWords();
+        $words = new DateAndNumberToWords();
 
         $this->assertEquals('Provide a valid hour integer (0-23), Carbon object or PHP DateTime object', $words->hour(66));
         $this->assertNotEquals('sixty-six', $words->hour(66));

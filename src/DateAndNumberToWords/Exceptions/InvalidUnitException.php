@@ -1,6 +1,6 @@
 <?php
 
-namespace DateToWords\Exceptions;
+namespace DateAndNumberToWords\Exceptions;
 
 use InvalidArgumentException as BaseInvalidArgumentException;
 

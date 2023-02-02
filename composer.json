@@ -1,10 +1,10 @@
 {
-    "name": "geoffreyrose/date-to-words",
-    "description": "Converts PHP Dates or Carbon objects to words",
-    "keywords": ["Carbon", "PHP Dates", "PHP Dates To Words" ],
+    "name": "geoffreyrose/date-and-numbers-to-words",
+    "description": "Converts PHP Dates, Carbon objects and numbers to words ",
+    "keywords": ["Carbon", "PHP Dates", "PHP Dates To Words", "PHP Numbers To Words", "Ordinal Numbers Words",  "Ordinal Date Words"],
     "autoload": {
         "psr-4": {
-            "DateToWords\\": "src/DateToWords"
+            "DateAndNumberToWords\\": "src/DateAndNumberToWords"
         }
     },
     "autoload-dev": {

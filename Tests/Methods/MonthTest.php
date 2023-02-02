@@ -1,14 +1,17 @@
 <?php
 
+namespace Tests\Methods;
+
 use Carbon\Carbon;
-use DateToWords\DateToWords;
+use DateAndNumberToWords\DateAndNumberToWords;
+use DateTime;
 use PHPUnit\Framework\TestCase;
 
 class MonthTest extends TestCase
 {
     public function testMonthInt()
     {
-        $words = new DateToWords();
+        $words = new DateAndNumberToWords();
 
         $this->assertEquals('October', $words->month(10));
         $this->assertNotEquals('tenth', $words->month(10));
@@ -16,7 +19,7 @@ class MonthTest extends TestCase
 
     public function testMonthOrdinalInt()
     {
-        $words = new DateToWords();
+        $words = new DateAndNumberToWords();
 
         $this->assertNotEquals('October', $words->month(10, true));
         $this->assertEquals('tenth', $words->month(10, true));
@@ -24,7 +27,7 @@ class MonthTest extends TestCase
 
     public function testMonthCarbon()
     {
-        $words = new DateToWords();
+        $words = new DateAndNumberToWords();
         $carbon = Carbon::create(1999, 10, 24, 4, 42, 0);
 
         $this->assertEquals('October', $words->month($carbon));
@@ -33,7 +36,7 @@ class MonthTest extends TestCase
 
     public function testMonthOrdinalCarbon()
     {
-        $words = new DateToWords();
+        $words = new DateAndNumberToWords();
         $carbon = Carbon::create(1999, 10, 24, 4, 42, 0);
 
         $this->assertNotEquals('October', $words->month($carbon, true));
@@ -42,7 +45,7 @@ class MonthTest extends TestCase
 
     public function testMonthDateTime()
     {
-        $words = new DateToWords();
+        $words = new DateAndNumberToWords();
         $dateTime = new DateTime();
         $dateTime->setDate(1999, 10, 24)->setTime(4, 42, 0);
 
@@ -52,7 +55,7 @@ class MonthTest extends TestCase
 
     public function testMonthOrdinalDateTime()
     {
-        $words = new DateToWords();
+        $words = new DateAndNumberToWords();
         $dateTime = new DateTime();
         $dateTime->setDate(1999, 10, 24)->setTime(4, 42, 0);
 
@@ -62,7 +65,7 @@ class MonthTest extends TestCase
 
     public function testInvalidArgumentException()
     {
-        $words = new DateToWords();
+        $words = new DateAndNumberToWords();
 
         $this->assertEquals('Provide a valid month integer (1-12), Carbon object or PHP DateTime object', $words->month(0));
         $this->assertNotEquals('zero', $words->month(0));

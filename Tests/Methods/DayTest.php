@@ -1,14 +1,17 @@
 <?php
 
+namespace Tests\Methods;
+
 use Carbon\Carbon;
-use DateToWords\DateToWords;
+use DateAndNumberToWords\DateAndNumberToWords;
+use DateTime;
 use PHPUnit\Framework\TestCase;
 
 class DayTest extends TestCase
 {
     public function testDayInt()
     {
-        $words = new DateToWords();
+        $words = new DateAndNumberToWords();
 
         $this->assertEquals('twenty-four', $words->day(24));
         $this->assertNotEquals('twenty-fourth', $words->day(24));
@@ -16,7 +19,7 @@ class DayTest extends TestCase
 
     public function testDayOrdinalInt()
     {
-        $words = new DateToWords();
+        $words = new DateAndNumberToWords();
 
         $this->assertNotEquals('twenty-four', $words->day(24, true));
         $this->assertEquals('twenty-fourth', $words->day(24, true));
@@ -24,7 +27,7 @@ class DayTest extends TestCase
 
     public function testDayCarbon()
     {
-        $words = new DateToWords();
+        $words = new DateAndNumberToWords();
         $carbon = Carbon::create(1999, 1, 24);
 
         $this->assertEquals('twenty-four', $words->day($carbon));
@@ -33,7 +36,7 @@ class DayTest extends TestCase
 
     public function testDayOrdinalCarbon()
     {
-        $words = new DateToWords();
+        $words = new DateAndNumberToWords();
         $carbon = Carbon::create(1999, 1, 24);
 
         $this->assertNotEquals('twenty-four', $words->day($carbon, true));
@@ -42,7 +45,7 @@ class DayTest extends TestCase
 
     public function testDayDateTime()
     {
-        $words = new DateToWords();
+        $words = new DateAndNumberToWords();
         $dateTime = new DateTime();
         $dateTime->setDate(1999, 1, 24);
 
@@ -52,7 +55,7 @@ class DayTest extends TestCase
 
     public function testDayOrdinalDateTime()
     {
-        $words = new DateToWords();
+        $words = new DateAndNumberToWords();
         $dateTime = new DateTime();
         $dateTime->setDate(1999, 1, 24);
 
@@ -62,7 +65,7 @@ class DayTest extends TestCase
 
     public function testInvalidArgumentException()
     {
-        $words = new DateToWords();
+        $words = new DateAndNumberToWords();
 
         $this->assertEquals('Provide a valid day integer (1-31), Carbon object or PHP DateTime object', $words->day(42));
         $this->assertNotEquals('forty-second', $words->day(42));

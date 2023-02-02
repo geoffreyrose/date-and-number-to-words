@@ -199,9 +199,9 @@ $words->number(999999999999999999)
 
 The default language is `en`
 
-Every method other than `month` supports every language PHP does. PHP's native`NumberFormatter` is being used to translate numbers to words.
+Every method other than `month` supports every language PHP does. PHP's native `NumberFormatter` is being used to translate numbers to words.
 
-For months, translations are handled by Carbon, which has translations for 270+ months.  
+For months, translations are handled by Carbon, which has translations for 270+ locales.  
  
 
 ```php

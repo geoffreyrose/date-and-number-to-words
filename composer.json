@@ -1,5 +1,5 @@
 {
-    "name": "geoffreyrose/date-and-numbers-to-words",
+    "name": "geoffreyrose/date-and-number-to-words",
     "description": "Converts PHP Dates, Carbon objects and numbers to words ",
     "keywords": ["Carbon", "PHP Dates", "PHP Dates To Words", "PHP Numbers To Words", "Ordinal Numbers Words",  "Ordinal Date Words"],
     "license": "MIT",

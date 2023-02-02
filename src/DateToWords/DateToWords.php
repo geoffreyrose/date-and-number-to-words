@@ -4,6 +4,7 @@ namespace DateToWords;
 
 use Carbon\Carbon;
 use DateTime;
+use DateToWords\Exceptions\InvalidLanguageException;
 use DateToWords\Exceptions\InvalidUnitException;
 use NumberFormatter;
 
@@ -17,26 +18,21 @@ class DateToWords
 
     public function __construct()
     {
-        $this->setTranslations();
-    }
-
-    private function setTranslations(): void
-    {
-        try {
-            $this->numberFormatter = new NumberFormatter($this->language, NumberFormatter::SPELLOUT);
-            $this->ordinalNumberFormatter = new NumberFormatter($this->language, NumberFormatter::SPELLOUT);
-            $this->ordinalNumberFormatter->setTextAttribute(NumberFormatter::DEFAULT_RULESET, '%spellout-ordinal');
-        } catch (\Throwable $e) {
-            $this->numberFormatter = new NumberFormatter('en', NumberFormatter::SPELLOUT);
-            $this->ordinalNumberFormatter = new NumberFormatter('en', NumberFormatter::SPELLOUT);
-            $this->ordinalNumberFormatter->setTextAttribute(NumberFormatter::DEFAULT_RULESET, '%spellout-ordinal');
-        }
+        $this->setLanguage($this->language);
     }
 
     public function setLanguage(string $language): void
     {
         $this->language = $language;
-        $this->setTranslations();
+
+        $languages = resourcebundle_locales('');
+        if (!in_array($this->language, $languages)) {
+            throw new InvalidLanguageException('Invalid Language Set: Use one of your PHP bundle languages. You can see which languages are bundled with "resourcebundle_locales(\'\')" ');
+        }
+
+        $this->numberFormatter = new NumberFormatter($this->language, NumberFormatter::SPELLOUT);
+        $this->ordinalNumberFormatter = new NumberFormatter($this->language, NumberFormatter::SPELLOUT);
+        $this->ordinalNumberFormatter->setTextAttribute(NumberFormatter::DEFAULT_RULESET, '%spellout-ordinal');
     }
 
     public function words(Carbon|DateTime $date, string $format): string
@@ -68,7 +64,7 @@ class DateToWords
     public function year(int|Carbon|DateTime $year, bool $ordinal = false): string
     {
         try {
-            if (is_numeric($year)) {
+            if (is_numeric($year) && $year <= 999999999999999999) {
                 if ($ordinal) {
                     return $this->ordinalNumberFormatter->format($year);
                 } else {
@@ -225,15 +221,15 @@ class DateToWords
                 }
             } elseif ($second instanceof Carbon) {
                 if ($ordinal) {
-                    return $this->ordinalNumberFormatter->format($second->format('j'));
+                    return $this->ordinalNumberFormatter->format($second->format('s'));
                 } else {
-                    return $this->numberFormatter->format($second->format('j'));
+                    return $this->numberFormatter->format($second->format('s'));
                 }
             } elseif ($second instanceof DateTime) {
                 if ($ordinal) {
-                    return $this->ordinalNumberFormatter->format($second->format('j'));
+                    return $this->ordinalNumberFormatter->format($second->format('s'));
                 } else {
-                    return $this->numberFormatter->format($second->format('j'));
+                    return $this->numberFormatter->format($second->format('s'));
                 }
             } else {
                 throw new InvalidUnitException('Provide a valid second integer (0-59), Carbon object or PHP DateTime object');

@@ -4,6 +4,7 @@ namespace Tests\Methods;
 
 use Carbon\Carbon;
 use DateAndNumberToWords\DateAndNumberToWords;
+use DateAndNumberToWords\Exceptions\InvalidUnitException;
 use DateTime;
 use PHPUnit\Framework\TestCase;
 
@@ -67,7 +68,15 @@ class MonthTest extends TestCase
     {
         $words = new DateAndNumberToWords();
 
-        $this->assertEquals('Provide a valid month integer (1-12), Carbon object or PHP DateTime object', $words->month(0));
-        $this->assertNotEquals('zero', $words->month(0));
+        $this->expectException(InvalidUnitException::class);
+        $words->month(13);
+    }
+
+    public function testInvalidArgumentException2()
+    {
+        $words = new DateAndNumberToWords();
+
+        $this->expectException(InvalidUnitException::class);
+        $words->month(0);
     }
 }

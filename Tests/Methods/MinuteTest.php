@@ -4,6 +4,7 @@ namespace Tests\Methods;
 
 use Carbon\Carbon;
 use DateAndNumberToWords\DateAndNumberToWords;
+use DateAndNumberToWords\Exceptions\InvalidUnitException;
 use DateTime;
 use PHPUnit\Framework\TestCase;
 
@@ -67,7 +68,15 @@ class MinuteTest extends TestCase
     {
         $words = new DateAndNumberToWords();
 
-        $this->assertEquals('Provide a valid minute integer (0-59), Carbon object or PHP DateTime object', $words->minute(66));
-        $this->assertNotEquals('sixty-six', $words->minute(66));
+        $this->expectException(InvalidUnitException::class);
+        $words->minute(61);
+    }
+
+    public function testInvalidArgumentException2()
+    {
+        $words = new DateAndNumberToWords();
+
+        $this->expectException(InvalidUnitException::class);
+        $words->minute(-1);
     }
 }

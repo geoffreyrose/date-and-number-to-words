@@ -4,6 +4,7 @@ namespace Tests\Methods;
 
 use Carbon\Carbon;
 use DateAndNumberToWords\DateAndNumberToWords;
+use DateAndNumberToWords\Exceptions\InvalidUnitException;
 use DateTime;
 use PHPUnit\Framework\TestCase;
 
@@ -67,7 +68,15 @@ class DayTest extends TestCase
     {
         $words = new DateAndNumberToWords();
 
-        $this->assertEquals('Provide a valid day integer (1-31), Carbon object or PHP DateTime object', $words->day(42));
-        $this->assertNotEquals('forty-second', $words->day(42));
+        $this->expectException(InvalidUnitException::class);
+        $words->day(32);
+    }
+
+    public function testInvalidArgumentException2()
+    {
+        $words = new DateAndNumberToWords();
+
+        $this->expectException(InvalidUnitException::class);
+        $words->day(0);
     }
 }

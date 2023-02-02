@@ -3,6 +3,7 @@
 namespace Tests\Methods;
 
 use DateAndNumberToWords\DateAndNumberToWords;
+use DateAndNumberToWords\Exceptions\InvalidUnitException;
 use PHPUnit\Framework\TestCase;
 
 class NumberTest extends TestCase
@@ -27,7 +28,15 @@ class NumberTest extends TestCase
     {
         $words = new DateAndNumberToWords();
 
-        $this->assertEquals('Provide a valid integer. Must to between 999999999999999999 and -999999999999999999', $words->number(999999999999999999 + 1));
-        $this->assertEquals('Provide a valid integer. Must to between 999999999999999999 and -999999999999999999', $words->number(-999999999999999999 - 1));
+        $this->expectException(InvalidUnitException::class);
+        $words->number(999999999999999999 + 1);
+    }
+
+    public function testInvalidArgumentException2()
+    {
+        $words = new DateAndNumberToWords();
+
+        $this->expectException(InvalidUnitException::class);
+        $words->number(-999999999999999999 - 1);
     }
 }

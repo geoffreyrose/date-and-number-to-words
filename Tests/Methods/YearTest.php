@@ -4,6 +4,7 @@ namespace Tests\Methods;
 
 use Carbon\Carbon;
 use DateAndNumberToWords\DateAndNumberToWords;
+use DateAndNumberToWords\Exceptions\InvalidUnitException;
 use DateTime;
 use PHPUnit\Framework\TestCase;
 
@@ -67,7 +68,15 @@ class YearTest extends TestCase
     {
         $words = new DateAndNumberToWords();
 
-        $this->assertEquals('Provide a valid year integer, Carbon object or PHP DateTime object', $words->year(999999999999999999 + 1));
-        $this->assertNotEquals('1,000,000,000,000,000,000', $words->month(999999999999999999 + 1));
+        $this->expectException(InvalidUnitException::class);
+        $words->year(999999999999999999 + 1);
+    }
+
+    public function testInvalidArgumentException2()
+    {
+        $words = new DateAndNumberToWords();
+
+        $this->expectException(InvalidUnitException::class);
+        $words->year(-999999999999999999 - 1);
     }
 }

@@ -7,6 +7,7 @@ use DateAndNumberToWords\Exceptions\InvalidLanguageException;
 use DateAndNumberToWords\Exceptions\InvalidUnitException;
 use DateTime;
 use NumberFormatter;
+use Throwable;
 
 class DateAndNumberToWords
 {
@@ -64,7 +65,7 @@ class DateAndNumberToWords
     public function year(int|Carbon|DateTime $year, bool $ordinal = false): string
     {
         try {
-            if (is_numeric($year) && $year <= 999999999999999999) {
+            if (is_numeric($year) && $year <= 999999999999999999 && $year >= -999999999999999999) {
                 if ($ordinal) {
                     return $this->ordinalNumberFormatter->format($year);
                 } else {
@@ -86,7 +87,7 @@ class DateAndNumberToWords
                 throw new InvalidUnitException('Provide a valid year integer, Carbon object or PHP DateTime object');
             }
         } catch (InvalidUnitException $e) {
-            return $e->getMessage();
+            throw new InvalidUnitException('Provide a valid year integer, Carbon object or PHP DateTime object');
         }
     }
 
@@ -118,8 +119,8 @@ class DateAndNumberToWords
             } else {
                 throw new InvalidUnitException('Provide a valid month integer (1-12), Carbon object or PHP DateTime object');
             }
-        } catch (InvalidUnitException $e) {
-            return $e->getMessage();
+        } catch (Throwable $e) {
+            throw new InvalidUnitException('Provide a valid month integer (1-12), Carbon object or PHP DateTime object');
         }
     }
 
@@ -147,8 +148,8 @@ class DateAndNumberToWords
             } else {
                 throw new InvalidUnitException('Provide a valid day integer (1-31), Carbon object or PHP DateTime object');
             }
-        } catch (InvalidUnitException $e) {
-            return $e->getMessage();
+        } catch (Throwable $e) {
+            throw new InvalidUnitException('Provide a valid day integer (1-31), Carbon object or PHP DateTime object');
         }
     }
 
@@ -176,8 +177,8 @@ class DateAndNumberToWords
             } else {
                 throw new InvalidUnitException('Provide a valid hour integer (0-23), Carbon object or PHP DateTime object');
             }
-        } catch (InvalidUnitException $e) {
-            return $e->getMessage();
+        } catch (Throwable $e) {
+            throw new InvalidUnitException('Provide a valid hour integer (0-23), Carbon object or PHP DateTime object');
         }
     }
 
@@ -205,8 +206,8 @@ class DateAndNumberToWords
             } else {
                 throw new InvalidUnitException('Provide a valid minute integer (0-59), Carbon object or PHP DateTime object');
             }
-        } catch (InvalidUnitException $e) {
-            return $e->getMessage();
+        } catch (Throwable $e) {
+            throw new InvalidUnitException('Provide a valid minute integer (0-59), Carbon object or PHP DateTime object');
         }
     }
 
@@ -234,8 +235,8 @@ class DateAndNumberToWords
             } else {
                 throw new InvalidUnitException('Provide a valid second integer (0-59), Carbon object or PHP DateTime object');
             }
-        } catch (InvalidUnitException $e) {
-            return $e->getMessage();
+        } catch (Throwable $e) {
+            throw new InvalidUnitException('Provide a valid second integer (0-59), Carbon object or PHP DateTime object');
         }
     }
 
@@ -251,8 +252,8 @@ class DateAndNumberToWords
             } else {
                 throw new InvalidUnitException('Provide a valid integer. Must to between 999999999999999999 and -999999999999999999');
             }
-        } catch (InvalidUnitException $e) {
-            return $e->getMessage();
+        } catch (Throwable $e) {
+            throw new InvalidUnitException('Provide a valid integer. Must to between 999999999999999999 and -999999999999999999');
         }
     }
 }

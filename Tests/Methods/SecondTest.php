@@ -4,6 +4,7 @@ namespace Tests\Methods;
 
 use Carbon\Carbon;
 use DateAndNumberToWords\DateAndNumberToWords;
+use DateAndNumberToWords\Exceptions\InvalidUnitException;
 use DateTime;
 use PHPUnit\Framework\TestCase;
 
@@ -67,7 +68,15 @@ class SecondTest extends TestCase
     {
         $words = new DateAndNumberToWords();
 
-        $this->assertEquals('Provide a valid second integer (0-59), Carbon object or PHP DateTime object', $words->second(66));
-        $this->assertNotEquals('sixty-six', $words->second(66));
+        $this->expectException(InvalidUnitException::class);
+        $words->second(66);
+    }
+
+    public function testInvalidArgumentException2()
+    {
+        $words = new DateAndNumberToWords();
+
+        $this->expectException(InvalidUnitException::class);
+        $words->second(-1);
     }
 }

@@ -2,6 +2,7 @@
     "name": "geoffreyrose/date-and-numbers-to-words",
     "description": "Converts PHP Dates, Carbon objects and numbers to words ",
     "keywords": ["Carbon", "PHP Dates", "PHP Dates To Words", "PHP Numbers To Words", "Ordinal Numbers Words",  "Ordinal Date Words"],
+    "license": "MIT",
     "autoload": {
         "psr-4": {
             "DateAndNumberToWords\\": "src/DateAndNumberToWords"

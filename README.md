@@ -10,7 +10,7 @@
 # Date and Number To Words
 An easy-to-use PHP package that turns dates and numbers into words. 
 
-Numbers and each part of the date can additionally be turned into ordinal word. (first, second, third)
+Numbers and each part of the date can additionally be turned into ordinal words. (first, second, third)
 
 
 

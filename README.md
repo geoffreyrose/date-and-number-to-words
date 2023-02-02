@@ -2,7 +2,7 @@
 
 [![Latest Stable Version](https://img.shields.io/packagist/v/geoffreyrose/date-and-number-to-words?style=flat-square)](https://packagist.org/packages/geoffreyrose/date-and-number-to-words)
 [![Total Downloads](https://img.shields.io/packagist/dt/geoffreyrose/date-and-number-to-words?style=flat-square)](https://packagist.org/packages/geoffreyrose/date-and-number-to-words/stats)
-[![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/geoffreyrose/date-and-number-to-words/main.yml?branch=master&style=flat-square)](https://github.com/geoffreyrose/date-and-number-to-words/actions?query=branch%3Amain)
+[![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/geoffreyrose/date-and-number-to-words/main.yml?branch=main&style=flat-square)](https://github.com/geoffreyrose/date-and-number-to-words/actions?query=branch%3Amain)
 [![Codecov branch](https://img.shields.io/codecov/c/gh/geoffreyrose/date-and-number-to-words/main?style=flat-square)](https://app.codecov.io/gh/geoffreyrose/date-and-number-to-words/branch/main)
 [![License](https://img.shields.io/github/license/geoffreyrose/date-and-number-to-words?style=flat-square)](https://github.com/geoffreyrose/date-and-number-to-words/blob/main/License)
 </div>

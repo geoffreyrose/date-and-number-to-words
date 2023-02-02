@@ -49,7 +49,7 @@ You can pass a Carbon object, DateTime object or a integer for all methods
 ### Dates to Words
 
 ```php
-words(Carbon|DateTime $date, string $format): string
+public function words(Carbon|DateTime $date, string $format): string
 
 $words = new DateToWords();
 $carbon = Carbon::create(2023, 4, 1);
@@ -78,7 +78,7 @@ S   :  Second - second($second)
 ### Year to Words
 
 ```php
-year(int|Carbon|DateTime $year, bool $ordinal = false): string
+public function year(int|Carbon|DateTime $year, bool $ordinal = false): string
 
 $words = new DateToWords();
 $carbon = Carbon::create(2023, 4, 1);
@@ -105,7 +105,7 @@ $words->year(2023);
 ### Month to Words
 
 ```php
-month(int|Carbon|DateTime $month, bool $ordinal = false): string
+public function month(int|Carbon|DateTime $month, bool $ordinal = false): string
 
 $words = new DateToWords();
 
@@ -119,7 +119,7 @@ $words->month(4);
 ### Day to Words
 
 ```php
-day(int|Carbon|DateTime $day, bool $ordinal = false): string
+public function day(int|Carbon|DateTime $day, bool $ordinal = false): string
 
 $words = new DateToWords();
 
@@ -133,7 +133,7 @@ $words->day(7);
 ### Hour to Words
 
 ```php
-hour(int|Carbon|DateTime $hour, bool $ordinal = false): string
+public function hour(int|Carbon|DateTime $hour, bool $ordinal = false): string
 
 $words = new DateToWords();
 
@@ -147,7 +147,7 @@ $words->hour(7);
 ### Minute to Words
 
 ```php
-minute(int|Carbon|DateTime $minute, bool $ordinal = false): string
+public function minute(int|Carbon|DateTime $minute, bool $ordinal = false): string
 
 $words = new DateToWords();
 
@@ -161,7 +161,7 @@ $words->minute(7);
 ### Second to Words
 
 ```php
-second(int|Carbon|DateTime $second, bool $ordinal = false): string
+public function second(int|Carbon|DateTime $second, bool $ordinal = false): string
 
 $words = new DateToWords();
 
@@ -176,9 +176,10 @@ $words->second(7);
 
 The default language is `en`
 
-Every method other the `month` supports every language PHP does since PHP's native`NumberFormatter` is being used to translate numbers to words.
+Every method other than `month` supports every language PHP does. PHP's native`NumberFormatter` is being used to translate numbers to words.
 
-Currently, there are only translations for month names for: de, en, es, fr, it, pt 
+For months, translations are handled by Carbon, which has translations for 270+ months.  
+ 
 
 ```php
 public function setLanguage(string $language): void

@@ -11,8 +11,6 @@ class DateToWords
 {
     private string $language = 'en';
 
-    protected array $months = [];
-
     protected NumberFormatter $numberFormatter;
 
     protected NumberFormatter $ordinalNumberFormatter;
@@ -33,15 +31,6 @@ class DateToWords
             $this->ordinalNumberFormatter = new NumberFormatter('en', NumberFormatter::SPELLOUT);
             $this->ordinalNumberFormatter->setTextAttribute(NumberFormatter::DEFAULT_RULESET, '%spellout-ordinal');
         }
-
-        $this->months = match ($this->language) {
-            'de' => Lang\De::months(),
-            'es' => Lang\Es::months(),
-            'fr' => Lang\Fr::months(),
-            'it' => Lang\It::months(),
-            'pt' => Lang\Pt::months(),
-            default => Lang\En::months(),
-        };
     }
 
     public function setLanguage(string $language): void
@@ -112,19 +101,21 @@ class DateToWords
                 if ($ordinal) {
                     return $this->ordinalNumberFormatter->format($month);
                 } else {
-                    return $this->months[$month];
+                    $date = Carbon::create(2023, $month, 2);
+                    return $date->locale($this->language)->getTranslatedMonthName();
                 }
             } elseif ($month instanceof Carbon) {
                 if ($ordinal) {
                     return $this->ordinalNumberFormatter->format($month->format('n'));
                 } else {
-                    return $this->months[$month->format('n')];
+                    return $month->copy()->locale($this->language)->getTranslatedMonthName();
                 }
             } elseif ($month instanceof DateTime) {
                 if ($ordinal) {
                     return $this->ordinalNumberFormatter->format($month->format('n'));
                 } else {
-                    return $this->months[$month->format('n')];
+                    $date = Carbon::create($month);
+                    return $date->locale($this->language)->getTranslatedMonthName();
                 }
             } else {
                 throw new InvalidUnitException('Provide a valid month integer (1-12), Carbon object or PHP DateTime object');

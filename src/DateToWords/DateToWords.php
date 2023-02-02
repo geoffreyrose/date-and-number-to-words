@@ -102,6 +102,7 @@ class DateToWords
                     return $this->ordinalNumberFormatter->format($month);
                 } else {
                     $date = Carbon::create(2023, $month, 2);
+
                     return $date->locale($this->language)->getTranslatedMonthName();
                 }
             } elseif ($month instanceof Carbon) {
@@ -115,6 +116,7 @@ class DateToWords
                     return $this->ordinalNumberFormatter->format($month->format('n'));
                 } else {
                     $date = Carbon::create($month);
+
                     return $date->locale($this->language)->getTranslatedMonthName();
                 }
             } else {

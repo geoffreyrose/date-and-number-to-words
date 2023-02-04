@@ -44,7 +44,7 @@ use DateAndNumberToWords\DateAndNumberToWords;
 
 ## Methods
 
-You can pass a Carbon object, DateTime object or a integer for all methods
+You can pass a Carbon object, DateTime object or an integer for most methods
 
 ### Dates to Words
 
@@ -174,7 +174,7 @@ $words->second(7);
 
 ### Number to Words
 
-Must to between 999999999999999999 and -999999999999999999
+Must be between 999999999999999999 and -999999999999999999
 
 Only `int` will return an ordinal word. If `$ordinal` is true but `$number` is `float` a non-ordinal word will be returned.
 

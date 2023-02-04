@@ -24,6 +24,22 @@ class NumberTest extends TestCase
         $this->assertEquals('nine hundred ninety-nine quadrillion nine hundred ninety-nine trillion nine hundred ninety-nine billion nine hundred ninety-nine million nine hundred ninety-nine thousand nine hundred ninety-ninth', $words->number(999999999999999999, true));
     }
 
+    public function testNumberFloat()
+    {
+        $words = new DateAndNumberToWords();
+
+        $this->assertNotEquals('12.123', $words->number(12.123));
+        $this->assertEquals('twelve point one two three', $words->number(12.123));
+    }
+
+    public function testNumberOrdinalFloat()
+    {
+        $words = new DateAndNumberToWords();
+
+        $this->assertNotEquals('12.123', $words->number(12.123, true));
+        $this->assertEquals('twelve point one two three', $words->number(12.123, true));
+    }
+
     public function testInvalidArgumentException()
     {
         $words = new DateAndNumberToWords();

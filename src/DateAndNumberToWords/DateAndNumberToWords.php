@@ -240,11 +240,11 @@ class DateAndNumberToWords
         }
     }
 
-    public function number(int $number, bool $ordinal = false): string
+    public function number(int|float $number, bool $ordinal = false): string
     {
         try {
             if ($number <= 999999999999999999 && $number >= -999999999999999999) {
-                if ($ordinal) {
+                if ($ordinal && is_int($number)) {
                     return $this->ordinalNumberFormatter->format($number);
                 } else {
                     return $this->numberFormatter->format($number);

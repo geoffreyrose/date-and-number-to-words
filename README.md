@@ -176,8 +176,10 @@ $words->second(7);
 
 Must to between 999999999999999999 and -999999999999999999
 
+Only `int` will return an ordinal word. If `$ordinal` is true but `$number` is `float` a non-ordinal word will be returned.
+
 ```php
-public function number(int $number, bool $ordinal = false): string
+public function number(int|float $number, bool $ordinal = false): string
 
 $words = new DateAndNumberToWords();
 
@@ -186,6 +188,12 @@ $words->number(7, true);
 
 $words->number(7);
 // seven
+
+$words->number(24.68);
+// twenty-four point six eight
+
+$words->number(24.68, true);
+// twenty-four point six eight
 
 $words->number(999999999999999999)
 // nine hundred ninety-nine quadrillion nine hundred ninety-nine trillion nine hundred ninety-nine billion nine hundred ninety-nine million nine hundred ninety-nine thousand nine hundred ninety-nine

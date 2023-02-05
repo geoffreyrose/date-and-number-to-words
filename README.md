@@ -88,7 +88,7 @@ $dateTime->setDate(2023, 4, 1);
 
 $date = new DateTime();
 
-$words->year(Carbon::now(), true);
+$words->year($carbon, true);
 // two thousand twenty-third
 
 $words->year($dateTime);

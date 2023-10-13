@@ -7,8 +7,8 @@
 [![License](https://img.shields.io/github/license/geoffreyrose/date-and-number-to-words?style=flat-square)](https://github.com/geoffreyrose/date-and-number-to-words/blob/main/License)
 </div>
 
-# Date and Number To Words
-An easy-to-use PHP package that turns dates and numbers into words. 
+# Date and Number To Standard Words or Ordinal words
+An easy-to-use PHP package that turns dates and numbers into words or ordinal words. 
 
 Numbers and each part of the date can additionally be turned into ordinal words. (first, second, third)
 

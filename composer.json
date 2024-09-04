@@ -15,7 +15,7 @@
     },
     "require": {
         "php": "^8.0",
-        "nesbot/carbon": "^2.66",
+        "nesbot/carbon": "^2.66|^3.0",
         "ext-intl": "*"
     },
     "config": {

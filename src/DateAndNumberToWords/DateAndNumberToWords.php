@@ -15,6 +15,8 @@ class DateAndNumberToWords
 
     protected NumberFormatter $numberFormatter;
 
+    protected NumberFormatter $numberFormatterCurrency;
+
     protected NumberFormatter $ordinalNumberFormatter;
 
     public function __construct()
@@ -33,7 +35,9 @@ class DateAndNumberToWords
 
         $this->numberFormatter = new NumberFormatter($this->language, NumberFormatter::SPELLOUT);
         $this->ordinalNumberFormatter = new NumberFormatter($this->language, NumberFormatter::SPELLOUT);
+        $this->numberFormatterCurrency = new NumberFormatter($this->language, NumberFormatter::CURRENCY);
         $this->ordinalNumberFormatter->setTextAttribute(NumberFormatter::DEFAULT_RULESET, '%spellout-ordinal');
+//        $this->numberFormatterCurrency->setTextAttribute(NumberFormatter::DEFAULT_RULESET, '%spellout-ordinal');
     }
 
     public function words(Carbon|DateTime $date, string $format): string
@@ -255,5 +259,11 @@ class DateAndNumberToWords
         } catch (Throwable $e) {
             throw new InvalidUnitException('Provide a valid integer. Must to between 999999999999999999 and -999999999999999999');
         }
+    }
+
+    public function currency(string $number, bool $ordinal = false): string
+    {
+        $symbol = $this->numberFormatterCurrency->getSymbol(NumberFormatter::INTL_CURRENCY_SYMBOL);
+        return $this->numberFormatterCurrency->formatCurrency($number, 'usd');
     }
 }

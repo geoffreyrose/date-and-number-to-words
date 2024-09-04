@@ -7,8 +7,8 @@
 [![License](https://img.shields.io/github/license/geoffreyrose/date-and-number-to-words?style=flat-square)](https://github.com/geoffreyrose/date-and-number-to-words/blob/main/License)
 </div>
 
-# Date and Number To Words
-An easy-to-use PHP package that turns dates and numbers into words. 
+# Date and Number To Standard Words or Ordinal words
+An easy-to-use PHP package that turns dates and numbers into words or ordinal words. 
 
 Numbers and each part of the date can additionally be turned into ordinal words. (first, second, third)
 
@@ -44,7 +44,7 @@ use DateAndNumberToWords\DateAndNumberToWords;
 
 ## Methods
 
-You can pass a Carbon object, DateTime object or a integer for all methods
+You can pass a Carbon object, DateTime object or an integer for most methods
 
 ### Dates to Words
 
@@ -88,7 +88,7 @@ $dateTime->setDate(2023, 4, 1);
 
 $date = new DateTime();
 
-$words->year(Carbon::now(), true);
+$words->year($carbon, true);
 // two thousand twenty-third
 
 $words->year($dateTime);
@@ -174,7 +174,7 @@ $words->second(7);
 
 ### Number to Words
 
-Must to between 999999999999999999 and -999999999999999999
+Must be between 999999999999999999 and -999999999999999999
 
 Only `int` will return an ordinal word. If `$ordinal` is true but `$number` is `float` a non-ordinal word will be returned.
 

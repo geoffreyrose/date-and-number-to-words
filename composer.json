@@ -22,7 +22,7 @@
         "discard-changes": true
     },
     "require-dev": {
-        "phpunit/phpunit": "^9.5",
+        "phpunit/phpunit": "^9.0|^10.0|^11.0",
         "php-coveralls/php-coveralls": "^2.5"
     },
     "scripts": {

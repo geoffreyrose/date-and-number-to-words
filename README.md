@@ -7,8 +7,8 @@
 [![License](https://img.shields.io/github/license/geoffreyrose/date-and-number-to-words?style=flat-square)](https://github.com/geoffreyrose/date-and-number-to-words/blob/main/License)
 </div>
 
-# Date and Number To Standard Words or Ordinal words
-An easy-to-use PHP package that turns dates and numbers into words or ordinal words. 
+# PHP: Date and Number To Standard Words or Ordinal Words + Laravel Facade
+An easy-to-use PHP package (and Laravel Facade) that turns dates and numbers into words or ordinal words.
 
 Numbers and each part of the date can additionally be turned into ordinal words. (first, second, third)
 
@@ -20,31 +20,37 @@ Numbers and each part of the date can additionally be turned into ordinal words.
 
 ### Usage
 
-#### With Composer
+#### Install
 ```
-$ composer require geoffreyrose/date-and-number-to-words
+composer require geoffreyrose/date-and-number-to-words
 ```
+
+### With Plain PHP
 
 ```php
-<?php
-require 'vendor/autoload.php';
-
 use DateAndNumberToWords\DateAndNumberToWords;
+
+...
+
+$words = new DateAndNumberToWords();
+$carbon = Carbon::create(2023, 4, 1);
+
+$words->words($carbon, 'Do of M, Y');
+
 ```
 
-#### Without Composer
+### With Laravel Facade
+Laravel uses Package Auto-Discovery, which doesn't require you to manually add the ServiceProvider and Facade.
 
 ```php
-<?php
-require 'path/to/geoffreyrose/DateAndNumberToWords.php';
-
-use DateAndNumberToWords\DateAndNumberToWords;
-```
-
+$words = DateAndNumberToWords::words(now(), 'Do of M, Y');
+``` 
 
 ## Methods
 
 You can pass a Carbon object, DateTime object or an integer for most methods
+
+**Note all examples below use Plain PHP (use DateAndNumberToWords\DateAndNumberToWords) but can be swapped with Laravel Facade (DateAndNumberToWords)**
 
 ### Dates to Words
 

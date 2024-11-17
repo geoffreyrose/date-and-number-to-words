@@ -18,13 +18,11 @@
         "nesbot/carbon": "^2.66|^3.0",
         "ext-intl": "*"
     },
-    "config": {
-        "discard-changes": true
-    },
     "require-dev": {
         "phpunit/phpunit": "^9.0|^10.0|^11.0",
         "php-coveralls/php-coveralls": "^2.5"
     },
+    "minimum-stability": "dev",
     "scripts": {
         "post-update-cmd": [
             "bash tools/setup.sh"
@@ -32,5 +30,15 @@
         "post-install-cmd": [
             "bash tools/setup.sh"
         ]
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "DateAndNumberToWords\\ServiceProvider"
+            ],
+            "aliases": {
+                "DateAndNumberToWords": "DateAndNumberToWords\\Facades\\DateAndNumberToWords"
+            }
+        }
     }
 }

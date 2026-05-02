@@ -8,18 +8,20 @@ use PHPUnit\Framework\TestCase;
 
 class SetLanguageTest extends TestCase
 {
-    public function testSetLanguage()
+    public function test_set_language()
     {
-        $words = new DateAndNumberToWords();
+        $words = new DateAndNumberToWords;
         $words->setLanguage('de');
 
-        $this->assertEquals('zwei­und­vierzig', $words->minute(42));
-        $this->assertNotEquals('zwei­und­vierzigste', $words->minute(42));
+        $result = $words->minute(42);
+        $this->assertEquals('zwei­und­vierzig', $result);
+        $this->assertNotEquals('zwei­und­vierzigste', $result);
+        $this->assertIsString($result);
     }
 
-    public function testSetLanguageInvalid()
+    public function test_set_language_invalid()
     {
-        $words = new DateAndNumberToWords();
+        $words = new DateAndNumberToWords;
         $this->expectException(InvalidLanguageException::class);
         $words->setLanguage('abc');
     }

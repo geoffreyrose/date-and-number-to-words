@@ -10,71 +10,83 @@ use PHPUnit\Framework\TestCase;
 
 class SecondTest extends TestCase
 {
-    public function testSecondInt()
+    public function test_second_int()
     {
-        $words = new DateAndNumberToWords();
+        $words = new DateAndNumberToWords;
 
-        $this->assertEquals('zero', $words->second(0));
-        $this->assertNotEquals('zeroth', $words->second(0));
+        $result = $words->second(0);
+        $this->assertEquals('zero', $result);
+        $this->assertNotEquals('zeroth', $result);
+        $this->assertIsString($result);
     }
 
-    public function testSecondOrdinalInt()
+    public function test_second_ordinal_int()
     {
-        $words = new DateAndNumberToWords();
+        $words = new DateAndNumberToWords;
 
-        $this->assertNotEquals('zero', $words->second(0, true));
-        $this->assertEquals('zeroth', $words->second(0, true));
+        $result = $words->second(0, true);
+        $this->assertNotEquals('zero', $result);
+        $this->assertEquals('zeroth', $result);
+        $this->assertIsString($result);
     }
 
-    public function testSecondCarbon()
+    public function test_second_carbon()
     {
-        $words = new DateAndNumberToWords();
+        $words = new DateAndNumberToWords;
         $carbon = Carbon::create(1999, 1, 24, 4, 42, 0);
 
-        $this->assertEquals('zero', $words->second($carbon));
-        $this->assertNotEquals('zeroth', $words->second($carbon));
+        $result = $words->second($carbon);
+        $this->assertEquals('zero', $result);
+        $this->assertNotEquals('zeroth', $result);
+        $this->assertIsString($result);
     }
 
-    public function testSecondOrdinalCarbon()
+    public function test_second_ordinal_carbon()
     {
-        $words = new DateAndNumberToWords();
+        $words = new DateAndNumberToWords;
         $carbon = Carbon::create(1999, 1, 24, 4, 42, 0);
 
-        $this->assertNotEquals('zero', $words->second($carbon, true));
-        $this->assertEquals('zeroth', $words->second($carbon, true));
+        $result = $words->second($carbon, true);
+        $this->assertNotEquals('zero', $result);
+        $this->assertEquals('zeroth', $result);
+        $this->assertIsString($result);
     }
 
-    public function testSecondDateTime()
+    public function test_second_date_time()
     {
-        $words = new DateAndNumberToWords();
-        $dateTime = new DateTime();
+        $words = new DateAndNumberToWords;
+        $dateTime = new DateTime;
         $dateTime->setDate(1999, 1, 24)->setTime(4, 42, 0);
 
-        $this->assertEquals('zero', $words->second($dateTime));
-        $this->assertNotEquals('zeroth', $words->second($dateTime));
+        $result = $words->second($dateTime);
+        $this->assertEquals('zero', $result);
+        $this->assertNotEquals('zeroth', $result);
+        $this->assertIsString($result);
     }
 
-    public function testSecondOrdinalDateTime()
+    public function test_second_ordinal_date_time()
     {
-        $words = new DateAndNumberToWords();
-        $dateTime = new DateTime();
+        $words = new DateAndNumberToWords;
+        $dateTime = new DateTime;
         $dateTime->setDate(1999, 1, 24)->setTime(4, 42, 0);
 
-        $this->assertNotEquals('zero', $words->second($dateTime, true));
-        $this->assertEquals('zeroth', $words->second($dateTime, true));
+        $result = $words->second($dateTime, true);
+        $this->assertNotEquals('zero', $result);
+        $this->assertEquals('zeroth', $result);
+        $this->assertIsString($result);
     }
 
-    public function testInvalidArgumentException()
+    public function test_invalid_argument_exception()
     {
-        $words = new DateAndNumberToWords();
+        $words = new DateAndNumberToWords;
 
         $this->expectException(InvalidUnitException::class);
         $words->second(66);
     }
 
-    public function testInvalidArgumentException2()
+    public function test_invalid_argument_exception2()
     {
-        $words = new DateAndNumberToWords();
+        $words = new DateAndNumberToWords;
 
         $this->expectException(InvalidUnitException::class);
         $words->second(-1);

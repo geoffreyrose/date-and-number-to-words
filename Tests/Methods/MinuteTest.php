@@ -10,71 +10,83 @@ use PHPUnit\Framework\TestCase;
 
 class MinuteTest extends TestCase
 {
-    public function testMinuteInt()
+    public function test_minute_int()
     {
-        $words = new DateAndNumberToWords();
+        $words = new DateAndNumberToWords;
 
-        $this->assertEquals('forty-two', $words->minute(42));
-        $this->assertNotEquals('forty-second', $words->minute(42));
+        $result = $words->minute(42);
+        $this->assertEquals('forty-two', $result);
+        $this->assertNotEquals('forty-second', $result);
+        $this->assertIsString($result);
     }
 
-    public function testMinuteOrdinalInt()
+    public function test_minute_ordinal_int()
     {
-        $words = new DateAndNumberToWords();
+        $words = new DateAndNumberToWords;
 
-        $this->assertNotEquals('forty-two', $words->minute(42, true));
-        $this->assertEquals('forty-second', $words->minute(42, true));
+        $result = $words->minute(42, true);
+        $this->assertNotEquals('forty-two', $result);
+        $this->assertEquals('forty-second', $result);
+        $this->assertIsString($result);
     }
 
-    public function testMinuteCarbon()
+    public function test_minute_carbon()
     {
-        $words = new DateAndNumberToWords();
+        $words = new DateAndNumberToWords;
         $carbon = Carbon::create(1999, 1, 24, 4, 42, 0);
 
-        $this->assertEquals('forty-two', $words->minute($carbon));
-        $this->assertNotEquals('forty-second', $words->minute($carbon));
+        $result = $words->minute($carbon);
+        $this->assertEquals('forty-two', $result);
+        $this->assertNotEquals('forty-second', $result);
+        $this->assertIsString($result);
     }
 
-    public function testMinuteOrdinalCarbon()
+    public function test_minute_ordinal_carbon()
     {
-        $words = new DateAndNumberToWords();
+        $words = new DateAndNumberToWords;
         $carbon = Carbon::create(1999, 1, 24, 4, 42, 0);
 
-        $this->assertNotEquals('forty-two', $words->minute($carbon, true));
-        $this->assertEquals('forty-second', $words->minute($carbon, true));
+        $result = $words->minute($carbon, true);
+        $this->assertNotEquals('forty-two', $result);
+        $this->assertEquals('forty-second', $result);
+        $this->assertIsString($result);
     }
 
-    public function testMinuteDateTime()
+    public function test_minute_date_time()
     {
-        $words = new DateAndNumberToWords();
-        $dateTime = new DateTime();
+        $words = new DateAndNumberToWords;
+        $dateTime = new DateTime;
         $dateTime->setDate(1999, 1, 24)->setTime(4, 42, 0);
 
-        $this->assertEquals('forty-two', $words->minute($dateTime));
-        $this->assertNotEquals('forty-second', $words->minute($dateTime));
+        $result = $words->minute($dateTime);
+        $this->assertEquals('forty-two', $result);
+        $this->assertNotEquals('forty-second', $result);
+        $this->assertIsString($result);
     }
 
-    public function testMinuteOrdinalDateTime()
+    public function test_minute_ordinal_date_time()
     {
-        $words = new DateAndNumberToWords();
-        $dateTime = new DateTime();
+        $words = new DateAndNumberToWords;
+        $dateTime = new DateTime;
         $dateTime->setDate(1999, 1, 24)->setTime(4, 42, 0);
 
-        $this->assertNotEquals('forty-two', $words->minute($dateTime, true));
-        $this->assertEquals('forty-second', $words->minute($dateTime, true));
+        $result = $words->minute($dateTime, true);
+        $this->assertNotEquals('forty-two', $result);
+        $this->assertEquals('forty-second', $result);
+        $this->assertIsString($result);
     }
 
-    public function testInvalidArgumentException()
+    public function test_invalid_argument_exception()
     {
-        $words = new DateAndNumberToWords();
+        $words = new DateAndNumberToWords;
 
         $this->expectException(InvalidUnitException::class);
         $words->minute(61);
     }
 
-    public function testInvalidArgumentException2()
+    public function test_invalid_argument_exception2()
     {
-        $words = new DateAndNumberToWords();
+        $words = new DateAndNumberToWords;
 
         $this->expectException(InvalidUnitException::class);
         $words->minute(-1);

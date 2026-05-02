@@ -8,107 +8,133 @@ use PHPUnit\Framework\TestCase;
 
 class WordsTest extends TestCase
 {
-    public function testWordsMixedString()
+    public function test_words_mixed_string()
     {
-        $words = new DateAndNumberToWords();
+        $words = new DateAndNumberToWords;
         $carbon = Carbon::create(2023, 4, 1, 7, 42, 8);
 
-        $this->assertEquals('first of April, two thousand twenty-three', $words->words($carbon, 'Do of M, Y'));
+        $result = $words->words($carbon, 'Do of M, Y');
+        $this->assertEquals('first of April, two thousand twenty-three', $result);
+        $this->assertIsString($result);
     }
 
-    public function testWordsYo()
+    public function test_words_yo()
     {
-        $words = new DateAndNumberToWords();
+        $words = new DateAndNumberToWords;
         $carbon = Carbon::create(2023, 4, 1, 7, 42, 8);
 
-        $this->assertEquals('two thousand twenty-third', $words->words($carbon, 'Yo'));
+        $result = $words->words($carbon, 'Yo');
+        $this->assertEquals('two thousand twenty-third', $result);
+        $this->assertIsString($result);
     }
 
-    public function testWordsY()
+    public function test_words_y()
     {
-        $words = new DateAndNumberToWords();
+        $words = new DateAndNumberToWords;
         $carbon = Carbon::create(2023, 4, 1, 7, 42, 8);
 
-        $this->assertEquals('two thousand twenty-three', $words->words($carbon, 'Y'));
+        $result = $words->words($carbon, 'Y');
+        $this->assertEquals('two thousand twenty-three', $result);
+        $this->assertIsString($result);
     }
 
-    public function testWordsMo()
+    public function test_words_mo()
     {
-        $words = new DateAndNumberToWords();
+        $words = new DateAndNumberToWords;
         $carbon = Carbon::create(2023, 4, 1, 7, 42, 8);
 
-        $this->assertEquals('fourth', $words->words($carbon, 'Mo'));
+        $result = $words->words($carbon, 'Mo');
+        $this->assertEquals('fourth', $result);
+        $this->assertIsString($result);
     }
 
-    public function testWordsM()
+    public function test_words_m()
     {
-        $words = new DateAndNumberToWords();
+        $words = new DateAndNumberToWords;
         $carbon = Carbon::create(2023, 4, 1, 7, 42, 8);
 
-        $this->assertEquals('April', $words->words($carbon, 'M'));
+        $result = $words->words($carbon, 'M');
+        $this->assertEquals('April', $result);
+        $this->assertIsString($result);
     }
 
-    public function testWordsDo()
+    public function test_words_do()
     {
-        $words = new DateAndNumberToWords();
+        $words = new DateAndNumberToWords;
         $carbon = Carbon::create(2023, 4, 1, 7, 42, 8);
 
-        $this->assertEquals('first', $words->words($carbon, 'Do'));
+        $result = $words->words($carbon, 'Do');
+        $this->assertEquals('first', $result);
+        $this->assertIsString($result);
     }
 
-    public function testWordsD()
+    public function test_words_d()
     {
-        $words = new DateAndNumberToWords();
+        $words = new DateAndNumberToWords;
         $carbon = Carbon::create(2023, 4, 1, 7, 42, 8);
 
-        $this->assertEquals('one', $words->words($carbon, 'D'));
+        $result = $words->words($carbon, 'D');
+        $this->assertEquals('one', $result);
+        $this->assertIsString($result);
     }
 
-    public function testWordsHo()
+    public function test_words_ho()
     {
-        $words = new DateAndNumberToWords();
+        $words = new DateAndNumberToWords;
         $carbon = Carbon::create(2023, 4, 1, 7, 42, 8);
 
-        $this->assertEquals('seventh', $words->words($carbon, 'Ho'));
+        $result = $words->words($carbon, 'Ho');
+        $this->assertEquals('seventh', $result);
+        $this->assertIsString($result);
     }
 
-    public function testWordsH()
+    public function test_words_h()
     {
-        $words = new DateAndNumberToWords();
+        $words = new DateAndNumberToWords;
         $carbon = Carbon::create(2023, 4, 1, 7, 42, 8);
 
-        $this->assertEquals('seven', $words->words($carbon, 'H'));
+        $result = $words->words($carbon, 'H');
+        $this->assertEquals('seven', $result);
+        $this->assertIsString($result);
     }
 
-    public function testWordsIo()
+    public function test_words_io()
     {
-        $words = new DateAndNumberToWords();
+        $words = new DateAndNumberToWords;
         $carbon = Carbon::create(2023, 4, 1, 7, 42, 8);
 
-        $this->assertEquals('forty-second', $words->words($carbon, 'Io'));
+        $result = $words->words($carbon, 'Io');
+        $this->assertEquals('forty-second', $result);
+        $this->assertIsString($result);
     }
 
-    public function testWordsI()
+    public function test_words_i()
     {
-        $words = new DateAndNumberToWords();
+        $words = new DateAndNumberToWords;
         $carbon = Carbon::create(2023, 4, 1, 7, 42, 8);
 
-        $this->assertEquals('forty-two', $words->words($carbon, 'I'));
+        $result = $words->words($carbon, 'I');
+        $this->assertEquals('forty-two', $result);
+        $this->assertIsString($result);
     }
 
-    public function testWordsSo()
+    public function test_words_so()
     {
-        $words = new DateAndNumberToWords();
+        $words = new DateAndNumberToWords;
         $carbon = Carbon::create(2023, 4, 1, 7, 42, 8);
 
-        $this->assertEquals('eighth', $words->words($carbon, 'So'));
+        $result = $words->words($carbon, 'So');
+        $this->assertEquals('eighth', $result);
+        $this->assertIsString($result);
     }
 
-    public function testWordsS()
+    public function test_words_s()
     {
-        $words = new DateAndNumberToWords();
+        $words = new DateAndNumberToWords;
         $carbon = Carbon::create(2023, 4, 1, 7, 42, 8);
 
-        $this->assertEquals('eight', $words->words($carbon, 'S'));
+        $result = $words->words($carbon, 'S');
+        $this->assertEquals('eight', $result);
+        $this->assertIsString($result);
     }
 }

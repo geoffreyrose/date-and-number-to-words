@@ -8,49 +8,57 @@ use PHPUnit\Framework\TestCase;
 
 class NumberTest extends TestCase
 {
-    public function testNumberInt()
+    public function test_number_int()
     {
-        $words = new DateAndNumberToWords();
+        $words = new DateAndNumberToWords;
 
-        $this->assertEquals('nine hundred ninety-nine quadrillion nine hundred ninety-nine trillion nine hundred ninety-nine billion nine hundred ninety-nine million nine hundred ninety-nine thousand nine hundred ninety-nine', $words->number(999999999999999999));
-        $this->assertNotEquals('nine hundred ninety-nine quadrillion nine hundred ninety-nine trillion nine hundred ninety-nine billion nine hundred ninety-nine million nine hundred ninety-nine thousand nine hundred ninety-ninth', $words->number(999999999999999999));
+        $result = $words->number(999999999999999999);
+        $this->assertEquals('nine hundred ninety-nine quadrillion nine hundred ninety-nine trillion nine hundred ninety-nine billion nine hundred ninety-nine million nine hundred ninety-nine thousand nine hundred ninety-nine', $result);
+        $this->assertNotEquals('nine hundred ninety-nine quadrillion nine hundred ninety-nine trillion nine hundred ninety-nine billion nine hundred ninety-nine million nine hundred ninety-nine thousand nine hundred ninety-ninth', $result);
+        $this->assertIsString($result);
     }
 
-    public function testNumberOrdinalInt()
+    public function test_number_ordinal_int()
     {
-        $words = new DateAndNumberToWords();
+        $words = new DateAndNumberToWords;
 
-        $this->assertNotEquals('nine hundred ninety-nine quadrillion nine hundred ninety-nine trillion nine hundred ninety-nine billion nine hundred ninety-nine million nine hundred ninety-nine thousand nine hundred ninety-nine', $words->number(999999999999999999, true));
-        $this->assertEquals('nine hundred ninety-nine quadrillion nine hundred ninety-nine trillion nine hundred ninety-nine billion nine hundred ninety-nine million nine hundred ninety-nine thousand nine hundred ninety-ninth', $words->number(999999999999999999, true));
+        $result = $words->number(999999999999999999, true);
+        $this->assertNotEquals('nine hundred ninety-nine quadrillion nine hundred ninety-nine trillion nine hundred ninety-nine billion nine hundred ninety-nine million nine hundred ninety-nine thousand nine hundred ninety-nine', $result);
+        $this->assertEquals('nine hundred ninety-nine quadrillion nine hundred ninety-nine trillion nine hundred ninety-nine billion nine hundred ninety-nine million nine hundred ninety-nine thousand nine hundred ninety-ninth', $result);
+        $this->assertIsString($result);
     }
 
-    public function testNumberFloat()
+    public function test_number_float()
     {
-        $words = new DateAndNumberToWords();
+        $words = new DateAndNumberToWords;
 
-        $this->assertNotEquals('12.123', $words->number(12.123));
-        $this->assertEquals('twelve point one two three', $words->number(12.123));
+        $result = $words->number(12.123);
+        $this->assertNotEquals('12.123', $result);
+        $this->assertEquals('twelve point one two three', $result);
+        $this->assertIsString($result);
     }
 
-    public function testNumberOrdinalFloat()
+    public function test_number_ordinal_float()
     {
-        $words = new DateAndNumberToWords();
+        $words = new DateAndNumberToWords;
 
-        $this->assertNotEquals('12.123', $words->number(12.123, true));
-        $this->assertEquals('twelve point one two three', $words->number(12.123, true));
+        $result = $words->number(12.123, true);
+        $this->assertNotEquals('12.123', $result);
+        $this->assertEquals('twelve point one two three', $result);
+        $this->assertIsString($result);
     }
 
-    public function testInvalidArgumentException()
+    public function test_invalid_argument_exception()
     {
-        $words = new DateAndNumberToWords();
+        $words = new DateAndNumberToWords;
 
         $this->expectException(InvalidUnitException::class);
         $words->number(999999999999999999 + 1);
     }
 
-    public function testInvalidArgumentException2()
+    public function test_invalid_argument_exception2()
     {
-        $words = new DateAndNumberToWords();
+        $words = new DateAndNumberToWords;
 
         $this->expectException(InvalidUnitException::class);
         $words->number(-999999999999999999 - 1);

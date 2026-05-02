@@ -9,7 +9,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     strategy:
       matrix:
         include:
@@ -20,13 +20,19 @@ jobs:
             coverage: 'false'
             phpunit-version: '10'
           - php-version: '8.2'
-            coverage: 'true'
-            phpunit-version: '10'
+            coverage: 'false'
+            phpunit-version: '11'
           - php-version: '8.3'
             coverage: 'false'
-            phpunit-version: '10'
+            phpunit-version: '11'
+          - php-version: '8.4'
+            coverage: 'false'
+            phpunit-version: '11'
+          - php-version: '8.5'
+            coverage: 'false'
+            phpunit-version: '11'
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
@@ -34,13 +40,7 @@ jobs:
           ini-values: post_max_size=256M, max_execution_time=180
           extensions: mbstring, intl, calendar
           coverage: xdebug
-          tools: php-cs-fixer, phpunit:${{ matrix.phpunit-version }}
       - name: Composer Install
         run: composer install --no-interaction --dev
       - name: Run Tests
         run: ./vendor/bin/phpunit
-      - name: Codecov
-        if: ${{ matrix.coverage == 'true' }}
-        uses: codecov/codecov-action@v3
-        with:
-          files: ./build/logs/clover.xml

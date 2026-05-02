@@ -24,14 +24,6 @@
         "phpstan/phpstan": "^2.1",
         "laravel/pint": "^1.20"
     },
-    "scripts": {
-        "post-update-cmd": [
-            "bash tools/setup.sh"
-        ],
-        "post-install-cmd": [
-            "bash tools/setup.sh"
-        ]
-    },
     "extra": {
         "laravel": {
             "providers": [

@@ -3,6 +3,7 @@
 namespace DateAndNumberToWords;
 
 use Carbon\Carbon;
+use DateAndNumberToWords\Exceptions\InvalidFormatException;
 use DateAndNumberToWords\Exceptions\InvalidLanguageException;
 use DateAndNumberToWords\Exceptions\InvalidUnitException;
 use DateTime;
@@ -61,9 +62,16 @@ class DateAndNumberToWords
      * @param  Carbon|DateTime  $date  The date to convert.
      * @param  string  $format  Format string composed of the tokens above.
      * @return string The date expressed in words.
+     *
+     * @throws InvalidFormatException if the format string is invalid
      */
     public function words(Carbon|DateTime $date, string $format): string
     {
+
+        if(strlen($format) === 0 || strlen($format) > 1024) {
+            throw new InvalidFormatException('Format string must be at least 1 character long and not longer than 1024 characters');
+        }
+
         $formatArray = (array) preg_split('/(\W)/', $format, -1, PREG_SPLIT_DELIM_CAPTURE);
         $string = '';
 

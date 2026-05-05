@@ -4,6 +4,7 @@ namespace Tests\Methods;
 
 use Carbon\Carbon;
 use DateAndNumberToWords\DateAndNumberToWords;
+use DateAndNumberToWords\Exceptions\InvalidFormatException;
 use PHPUnit\Framework\TestCase;
 
 class WordsTest extends TestCase
@@ -140,12 +141,22 @@ class WordsTest extends TestCase
 
     public function test_words_empty_format()
     {
+        $this->expectException(InvalidFormatException::class);
+
         $words = new DateAndNumberToWords;
         $carbon = Carbon::create(2023, 4, 1, 7, 42, 8);
 
-        $result = $words->words($carbon, '');
-        $this->assertEquals('', $result);
-        $this->assertIsString($result);
+        $words->words($carbon, '');
+    }
+
+    public function test_words_format_too_long()
+    {
+        $this->expectException(InvalidFormatException::class);
+
+        $words = new DateAndNumberToWords;
+        $carbon = Carbon::create(2023, 4, 1, 7, 42, 8);
+
+        $words->words($carbon, str_repeat('Y', 1025));
     }
 
     public function test_words_passthrough_only()

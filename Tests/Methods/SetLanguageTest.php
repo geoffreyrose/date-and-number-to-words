@@ -19,6 +19,16 @@ class SetLanguageTest extends TestCase
         $this->assertIsString($result);
     }
 
+    public function test_set_language_french()
+    {
+        $words = new DateAndNumberToWords;
+        $words->setLanguage('fr');
+
+        $result = $words->minute(42);
+        $this->assertEquals('quarante-deux', $result);
+        $this->assertIsString($result);
+    }
+
     public function test_set_language_invalid()
     {
         $words = new DateAndNumberToWords;

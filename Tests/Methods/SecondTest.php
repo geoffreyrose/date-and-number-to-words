@@ -76,6 +76,24 @@ class SecondTest extends TestCase
         $this->assertIsString($result);
     }
 
+    public function test_second_boundary_min()
+    {
+        $words = new DateAndNumberToWords;
+
+        $result = $words->second(0);
+        $this->assertEquals('zero', $result);
+        $this->assertIsString($result);
+    }
+
+    public function test_second_boundary_max()
+    {
+        $words = new DateAndNumberToWords;
+
+        $result = $words->second(59);
+        $this->assertEquals('fifty-nine', $result);
+        $this->assertIsString($result);
+    }
+
     public function test_invalid_argument_exception()
     {
         $words = new DateAndNumberToWords;

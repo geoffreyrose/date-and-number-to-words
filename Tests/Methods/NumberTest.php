@@ -48,6 +48,33 @@ class NumberTest extends TestCase
         $this->assertIsString($result);
     }
 
+    public function test_number_zero()
+    {
+        $words = new DateAndNumberToWords;
+
+        $result = $words->number(0);
+        $this->assertEquals('zero', $result);
+        $this->assertIsString($result);
+    }
+
+    public function test_number_negative_int()
+    {
+        $words = new DateAndNumberToWords;
+
+        $result = $words->number(-42);
+        $this->assertEquals('minus forty-two', $result);
+        $this->assertIsString($result);
+    }
+
+    public function test_number_negative_float()
+    {
+        $words = new DateAndNumberToWords;
+
+        $result = $words->number(-12.5);
+        $this->assertEquals('minus twelve point five', $result);
+        $this->assertIsString($result);
+    }
+
     public function test_invalid_argument_exception()
     {
         $words = new DateAndNumberToWords;

@@ -76,6 +76,24 @@ class MinuteTest extends TestCase
         $this->assertIsString($result);
     }
 
+    public function test_minute_boundary_min()
+    {
+        $words = new DateAndNumberToWords;
+
+        $result = $words->minute(0);
+        $this->assertEquals('zero', $result);
+        $this->assertIsString($result);
+    }
+
+    public function test_minute_boundary_max()
+    {
+        $words = new DateAndNumberToWords;
+
+        $result = $words->minute(59);
+        $this->assertEquals('fifty-nine', $result);
+        $this->assertIsString($result);
+    }
+
     public function test_invalid_argument_exception()
     {
         $words = new DateAndNumberToWords;

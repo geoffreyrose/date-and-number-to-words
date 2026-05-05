@@ -76,6 +76,24 @@ class MonthTest extends TestCase
         $this->assertIsString($result);
     }
 
+    public function test_month_boundary_min()
+    {
+        $words = new DateAndNumberToWords;
+
+        $result = $words->month(1);
+        $this->assertEquals('January', $result);
+        $this->assertIsString($result);
+    }
+
+    public function test_month_boundary_max()
+    {
+        $words = new DateAndNumberToWords;
+
+        $result = $words->month(12);
+        $this->assertEquals('December', $result);
+        $this->assertIsString($result);
+    }
+
     public function test_invalid_argument_exception()
     {
         $words = new DateAndNumberToWords;

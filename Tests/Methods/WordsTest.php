@@ -137,4 +137,35 @@ class WordsTest extends TestCase
         $this->assertEquals('eight', $result);
         $this->assertIsString($result);
     }
+
+    public function test_words_empty_format()
+    {
+        $words = new DateAndNumberToWords;
+        $carbon = Carbon::create(2023, 4, 1, 7, 42, 8);
+
+        $result = $words->words($carbon, '');
+        $this->assertEquals('', $result);
+        $this->assertIsString($result);
+    }
+
+    public function test_words_passthrough_only()
+    {
+        $words = new DateAndNumberToWords;
+        $carbon = Carbon::create(2023, 4, 1, 7, 42, 8);
+
+        $result = $words->words($carbon, 'hello');
+        $this->assertEquals('hello', $result);
+        $this->assertIsString($result);
+    }
+
+    public function test_words_datetime_object()
+    {
+        $words = new DateAndNumberToWords;
+        $dateTime = new \DateTime;
+        $dateTime->setDate(2023, 4, 1)->setTime(7, 42, 8);
+
+        $result = $words->words($dateTime, 'Do of M, Y');
+        $this->assertEquals('first of April, two thousand twenty-three', $result);
+        $this->assertIsString($result);
+    }
 }

@@ -76,6 +76,15 @@ class YearTest extends TestCase
         $this->assertIsString($result);
     }
 
+    public function test_year_negative()
+    {
+        $words = new DateAndNumberToWords;
+
+        $result = $words->year(-100);
+        $this->assertEquals('minus one hundred', $result);
+        $this->assertIsString($result);
+    }
+
     public function test_invalid_argument_exception()
     {
         $words = new DateAndNumberToWords;

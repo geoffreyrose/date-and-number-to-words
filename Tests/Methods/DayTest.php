@@ -76,6 +76,32 @@ class DayTest extends TestCase
         $this->assertIsString($result);
     }
 
+    public function test_day_boundary_min()
+    {
+        $words = new DateAndNumberToWords;
+
+        $result = $words->day(1);
+        $this->assertEquals('one', $result);
+        $this->assertIsString($result);
+
+        $result = $words->day(1, true);
+        $this->assertEquals('first', $result);
+        $this->assertIsString($result);
+    }
+
+    public function test_day_boundary_max()
+    {
+        $words = new DateAndNumberToWords;
+
+        $result = $words->day(31);
+        $this->assertEquals('thirty-one', $result);
+        $this->assertIsString($result);
+
+        $result = $words->day(31, true);
+        $this->assertEquals('thirty-first', $result);
+        $this->assertIsString($result);
+    }
+
     public function test_invalid_argument_exception()
     {
         $words = new DateAndNumberToWords;

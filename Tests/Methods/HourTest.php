@@ -76,6 +76,24 @@ class HourTest extends TestCase
         $this->assertIsString($result);
     }
 
+    public function test_hour_boundary_min()
+    {
+        $words = new DateAndNumberToWords;
+
+        $result = $words->hour(0);
+        $this->assertEquals('zero', $result);
+        $this->assertIsString($result);
+    }
+
+    public function test_hour_boundary_max()
+    {
+        $words = new DateAndNumberToWords;
+
+        $result = $words->hour(23);
+        $this->assertEquals('twenty-three', $result);
+        $this->assertIsString($result);
+    }
+
     public function test_invalid_argument_exception()
     {
         $words = new DateAndNumberToWords;

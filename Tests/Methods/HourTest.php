@@ -92,6 +92,10 @@ class HourTest extends TestCase
         $result = $words->hour(23);
         $this->assertEquals('twenty-three', $result);
         $this->assertIsString($result);
+
+        $result = $words->hour(Carbon::now()->setHour(23));
+        $this->assertEquals('twenty-three', $result);
+        $this->assertIsString($result);
     }
 
     public function test_invalid_argument_exception()

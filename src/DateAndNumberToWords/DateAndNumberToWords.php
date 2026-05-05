@@ -135,7 +135,7 @@ class DateAndNumberToWords
             } else {
                 throw new InvalidUnitException('Provide a valid year integer, Carbon object or PHP DateTime object');
             }
-        } catch (InvalidUnitException $e) {
+        } catch (Throwable $e) {
             throw new InvalidUnitException('Provide a valid year integer, Carbon object or PHP DateTime object');
         }
     }
@@ -264,9 +264,9 @@ class DateAndNumberToWords
                 return $result !== false ? $result : '';
             } elseif ($hour instanceof Carbon) {
                 if ($ordinal) {
-                    $result = $this->ordinalNumberFormatter->format((int) $hour->format('g'));
+                    $result = $this->ordinalNumberFormatter->format((int) $hour->format('G'));
                 } else {
-                    $result = $this->numberFormatter->format((int) $hour->format('g'));
+                    $result = $this->numberFormatter->format((int) $hour->format('G'));
                 }
 
                 return $result !== false ? $result : '';
@@ -397,10 +397,10 @@ class DateAndNumberToWords
 
                 return $result !== false ? $result : '';
             } else {
-                throw new InvalidUnitException('Provide a valid integer. Must to between 999999999999999999 and -999999999999999999');
+                throw new InvalidUnitException('Provide a valid integer. Must be between 999999999999999999 and -999999999999999999');
             }
         } catch (Throwable $e) {
-            throw new InvalidUnitException('Provide a valid integer. Must to between 999999999999999999 and -999999999999999999');
+            throw new InvalidUnitException('Provide a valid integer. Must be between 999999999999999999 and -999999999999999999');
         }
     }
 }

@@ -54,9 +54,11 @@ class DateAndNumberToWords
      *   Y/Yo  – year (cardinal/ordinal)
      *   M/Mo  – month (name/ordinal)
      *   D/Do  – day (cardinal/ordinal)
-     *   H/Ho  – hour (cardinal/ordinal)
+     *   H/Ho  – hour 24-hour (cardinal/ordinal)
+     *   h/ho  – hour 12-hour (cardinal/ordinal)
      *   I/Io  – minute (cardinal/ordinal)
      *   S/So  – second (cardinal/ordinal)
+     *   A     – AM / PM
      * Non-token characters (separators, spaces) are passed through unchanged.
      *
      * @param  Carbon|DateTime  $date  The date to convert.
@@ -85,10 +87,13 @@ class DateAndNumberToWords
                 'D' => $string .= $this->day($date),
                 'Ho' => $string .= $this->hour($date, true),
                 'H' => $string .= $this->hour($date),
+                'ho' => $string .= $this->hour($date, true, false),
+                'h' => $string .= $this->hour($date, twentyFour: false),
                 'Io' => $string .= $this->minute($date, true),
                 'I' => $string .= $this->minute($date),
                 'So' => $string .= $this->second($date, true),
                 'S' => $string .= $this->second($date),
+                'A' => $string .= $this->ampm($date),
                 default => $string .= $part,
             };
         }
@@ -245,16 +250,22 @@ class DateAndNumberToWords
     /**
      * Converts an hour value to its spelled-out word form.
      *
-     * @param  int|Carbon|DateTime  $hour  An integer hour (0–23), Carbon instance, or DateTime instance.
+     * @param  int|Carbon|DateTime  $hour  An integer hour (0–23 for 24-hour; 1–12 for 12-hour), Carbon instance, or DateTime instance.
      * @param  bool  $ordinal  When true, returns the ordinal form (e.g. "third").
+     * @param  bool  $twentyFour  When true (default), uses the 24-hour clock (0–23); when false, uses the 12-hour clock (1–12).
      * @return string The hour expressed in words.
      *
      * @throws InvalidUnitException If the value is not a valid hour input.
      */
-    public function hour(int|Carbon|DateTime $hour, bool $ordinal = false): string
+    public function hour(int|Carbon|DateTime $hour, bool $ordinal = false, bool $twentyFour = true): string
     {
+        $min = $twentyFour ? 0 : 1;
+        $max = $twentyFour ? 23 : 12;
+        $formatChar = $twentyFour ? 'G' : 'g';
+        $range = $twentyFour ? '0-23' : '1-12';
+
         try {
-            if (is_numeric($hour) && $hour >= 0 && $hour <= 23) {
+            if (is_numeric($hour) && $hour >= $min && $hour <= $max) {
                 if ($ordinal) {
                     $result = $this->ordinalNumberFormatter->format($hour);
                 } else {
@@ -264,25 +275,25 @@ class DateAndNumberToWords
                 return $result !== false ? $result : '';
             } elseif ($hour instanceof Carbon) {
                 if ($ordinal) {
-                    $result = $this->ordinalNumberFormatter->format((int) $hour->format('G'));
+                    $result = $this->ordinalNumberFormatter->format((int) $hour->format($formatChar));
                 } else {
-                    $result = $this->numberFormatter->format((int) $hour->format('G'));
+                    $result = $this->numberFormatter->format((int) $hour->format($formatChar));
                 }
 
                 return $result !== false ? $result : '';
             } elseif ($hour instanceof DateTime) {
                 if ($ordinal) {
-                    $result = $this->ordinalNumberFormatter->format((int) $hour->format('g'));
+                    $result = $this->ordinalNumberFormatter->format((int) $hour->format($formatChar));
                 } else {
-                    $result = $this->numberFormatter->format((int) $hour->format('g'));
+                    $result = $this->numberFormatter->format((int) $hour->format($formatChar));
                 }
 
                 return $result !== false ? $result : '';
             } else {
-                throw new InvalidUnitException('Provide a valid hour integer (0-23), Carbon object or PHP DateTime object');
+                throw new InvalidUnitException('Provide a valid hour integer (' . $range . '), Carbon object or PHP DateTime object');
             }
         } catch (Throwable $e) {
-            throw new InvalidUnitException('Provide a valid hour integer (0-23), Carbon object or PHP DateTime object');
+            throw new InvalidUnitException('Provide a valid hour integer (' . $range . '), Carbon object or PHP DateTime object');
         }
     }
 
@@ -372,6 +383,19 @@ class DateAndNumberToWords
         } catch (Throwable $e) {
             throw new InvalidUnitException('Provide a valid second integer (0-59), Carbon object or PHP DateTime object');
         }
+    }
+
+    /**
+     * Returns AM or PM for a given date/time.
+     *
+     * @param  Carbon|DateTime  $ampm  Carbon instance or DateTime instance.
+     * @return string 'AM' or 'PM'.
+     *
+     * @throws InvalidUnitException If the value is not a valid input.
+     */
+    public function ampm(Carbon|DateTime $ampm): string
+    {
+        return $ampm->format('A');
     }
 
     /**

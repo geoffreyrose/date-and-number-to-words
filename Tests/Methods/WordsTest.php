@@ -99,6 +99,26 @@ class WordsTest extends TestCase
         $this->assertIsString($result);
     }
 
+    public function test_words_lowercase_ho()
+    {
+        $words = new DateAndNumberToWords;
+        $carbon = Carbon::create(2023, 4, 1, 14, 42, 8);
+
+        $result = $words->words($carbon, 'ho');
+        $this->assertEquals('second', $result);
+        $this->assertIsString($result);
+    }
+
+    public function test_words_lowercase_h()
+    {
+        $words = new DateAndNumberToWords;
+        $carbon = Carbon::create(2023, 4, 1, 14, 42, 8);
+
+        $result = $words->words($carbon, 'h');
+        $this->assertEquals('two', $result);
+        $this->assertIsString($result);
+    }
+
     public function test_words_io()
     {
         $words = new DateAndNumberToWords;
@@ -136,6 +156,16 @@ class WordsTest extends TestCase
 
         $result = $words->words($carbon, 'S');
         $this->assertEquals('eight', $result);
+        $this->assertIsString($result);
+    }
+
+    public function test_words_a()
+    {
+        $words = new DateAndNumberToWords;
+        $carbon = Carbon::create(2023, 4, 1, 7, 42, 8);
+
+        $result = $words->words($carbon, 'A');
+        $this->assertEquals('AM', $result);
         $this->assertIsString($result);
     }
 

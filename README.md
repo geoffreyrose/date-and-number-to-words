@@ -72,12 +72,15 @@ Mo  :  Ordinal Month - month($month, true)
 M   :  Month - month($month)
 Do  :  Ordinal Day - day($day, true)
 D   :  Day - day($day)
-Ho  :  Ordinal Hour - hour($hour, true)
-H   :  Hour - hour($hour)
+Ho  :  (24 Hour) Ordinal Hour - hour($hour, true)
+H   :  (24 Hour) Hour - hour($hour)
+ho  :  (12 Hour) Ordinal Hour - hour($hour, true, false)
+h   :  (12 Hour) Hour - hour($hour, twentyFour: false)
 Io  :  Ordinal Minute - minute($minute, true)
 I   :  Minute - minute($minute)
 So  :  Ordinal Second - second($second, true)
 S   :  Second - second($second)
+A   :  AM / PM
 ```
 
 ### Year to Words
@@ -138,7 +141,7 @@ $words->day(7);
 ### Hour to Words
 
 ```php
-public function hour(int|Carbon|DateTime $hour, bool $ordinal = false): string
+public function hour(int|Carbon|DateTime $hour, bool $ordinal = false, bool $twentyFour = true): string
 
 $words = new DateAndNumberToWords();
 

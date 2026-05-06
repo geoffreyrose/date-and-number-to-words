@@ -10,71 +10,92 @@ use PHPUnit\Framework\TestCase;
 
 class YearTest extends TestCase
 {
-    public function testYearInt()
+    public function test_year_int()
     {
-        $words = new DateAndNumberToWords();
+        $words = new DateAndNumberToWords;
 
-        $this->assertEquals('one thousand nine hundred ninety-nine', $words->year(1999));
-        $this->assertNotEquals('one thousand nine hundred ninety-ninth', $words->year(1999));
+        $result = $words->year(1999);
+        $this->assertEquals('one thousand nine hundred ninety-nine', $result);
+        $this->assertNotEquals('one thousand nine hundred ninety-ninth', $result);
+        $this->assertIsString($result);
     }
 
-    public function testYearOrdinalInt()
+    public function test_year_ordinal_int()
     {
-        $words = new DateAndNumberToWords();
+        $words = new DateAndNumberToWords;
 
-        $this->assertNotEquals('one thousand nine hundred ninety-nine', $words->year(1999, true));
-        $this->assertEquals('one thousand nine hundred ninety-ninth', $words->year(1999, true));
+        $result = $words->year(1999, true);
+        $this->assertNotEquals('one thousand nine hundred ninety-nine', $result);
+        $this->assertEquals('one thousand nine hundred ninety-ninth', $result);
+        $this->assertIsString($result);
     }
 
-    public function testYearCarbon()
+    public function test_year_carbon()
     {
-        $words = new DateAndNumberToWords();
+        $words = new DateAndNumberToWords;
         $carbon = Carbon::create(1999, 1, 1);
 
-        $this->assertEquals('one thousand nine hundred ninety-nine', $words->year($carbon));
-        $this->assertNotEquals('one thousand nine hundred ninety-ninth', $words->year($carbon));
+        $result = $words->year($carbon);
+        $this->assertEquals('one thousand nine hundred ninety-nine', $result);
+        $this->assertNotEquals('one thousand nine hundred ninety-ninth', $result);
+        $this->assertIsString($result);
     }
 
-    public function testYearOrdinalCarbon()
+    public function test_year_ordinal_carbon()
     {
-        $words = new DateAndNumberToWords();
+        $words = new DateAndNumberToWords;
         $carbon = Carbon::create(1999, 1, 1);
 
-        $this->assertNotEquals('one thousand nine hundred ninety-nine', $words->year($carbon, true));
-        $this->assertEquals('one thousand nine hundred ninety-ninth', $words->year($carbon, true));
+        $result = $words->year($carbon, true);
+        $this->assertNotEquals('one thousand nine hundred ninety-nine', $result);
+        $this->assertEquals('one thousand nine hundred ninety-ninth', $result);
+        $this->assertIsString($result);
     }
 
-    public function testYearDateTime()
+    public function test_year_date_time()
     {
-        $words = new DateAndNumberToWords();
-        $dateTime = new DateTime();
+        $words = new DateAndNumberToWords;
+        $dateTime = new DateTime;
         $dateTime->setDate(1999, 1, 1);
 
-        $this->assertEquals('one thousand nine hundred ninety-nine', $words->year($dateTime));
-        $this->assertNotEquals('one thousand nine hundred ninety-ninth', $words->year($dateTime));
+        $result = $words->year($dateTime);
+        $this->assertEquals('one thousand nine hundred ninety-nine', $result);
+        $this->assertNotEquals('one thousand nine hundred ninety-ninth', $result);
+        $this->assertIsString($result);
     }
 
-    public function testYearOrdinalDateTime()
+    public function test_year_ordinal_date_time()
     {
-        $words = new DateAndNumberToWords();
-        $dateTime = new DateTime();
+        $words = new DateAndNumberToWords;
+        $dateTime = new DateTime;
         $dateTime->setDate(1999, 1, 1);
 
-        $this->assertNotEquals('one thousand nine hundred ninety-nine', $words->year($dateTime, true));
-        $this->assertEquals('one thousand nine hundred ninety-ninth', $words->year($dateTime, true));
+        $result = $words->year($dateTime, true);
+        $this->assertNotEquals('one thousand nine hundred ninety-nine', $result);
+        $this->assertEquals('one thousand nine hundred ninety-ninth', $result);
+        $this->assertIsString($result);
     }
 
-    public function testInvalidArgumentException()
+    public function test_year_negative()
     {
-        $words = new DateAndNumberToWords();
+        $words = new DateAndNumberToWords;
+
+        $result = $words->year(-100);
+        $this->assertEquals('minus one hundred', $result);
+        $this->assertIsString($result);
+    }
+
+    public function test_invalid_argument_exception()
+    {
+        $words = new DateAndNumberToWords;
 
         $this->expectException(InvalidUnitException::class);
         $words->year(999999999999999999 + 1);
     }
 
-    public function testInvalidArgumentException2()
+    public function test_invalid_argument_exception2()
     {
-        $words = new DateAndNumberToWords();
+        $words = new DateAndNumberToWords;
 
         $this->expectException(InvalidUnitException::class);
         $words->year(-999999999999999999 - 1);

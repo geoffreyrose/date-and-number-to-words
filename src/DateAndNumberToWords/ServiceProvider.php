@@ -11,10 +11,10 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
      */
     public function register()
     {
-        $this->app->singleton(\DateAndNumberToWords\DateAndNumberToWords::class, function ($app) {
-            return new \DateAndNumberToWords\DateAndNumberToWords();
+        $this->app->singleton(DateAndNumberToWords::class, function ($app) {
+            return new DateAndNumberToWords;
         });
 
-        $this->app->alias(\DateAndNumberToWords\DateAndNumberToWords::class, 'dateandnumbertowords');
+        $this->app->alias(DateAndNumberToWords::class, 'dateandnumbertowords');
     }
 }

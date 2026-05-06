@@ -1,0 +1,6 @@
+parameters:
+    level: 10
+    treatPhpDocTypesAsCertain: false
+    excludePaths:
+        - src/DateAndNumberToWords/Facades/DateAndNumberToWords.php
+        - src/DateAndNumberToWords/ServiceProvider.php

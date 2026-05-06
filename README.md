@@ -2,8 +2,7 @@
 
 [![Latest Stable Version](https://img.shields.io/packagist/v/geoffreyrose/date-and-number-to-words?style=flat-square)](https://packagist.org/packages/geoffreyrose/date-and-number-to-words)
 [![Total Downloads](https://img.shields.io/packagist/dt/geoffreyrose/date-and-number-to-words?style=flat-square)](https://packagist.org/packages/geoffreyrose/date-and-number-to-words/stats)
-[![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/geoffreyrose/date-and-number-to-words/main.yml?branch=main&style=flat-square)](https://github.com/geoffreyrose/date-and-number-to-words/actions?query=branch%3Amain)
-[![Codecov branch](https://img.shields.io/codecov/c/gh/geoffreyrose/date-and-number-to-words/main?style=flat-square)](https://app.codecov.io/gh/geoffreyrose/date-and-number-to-words/branch/main)
+[![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/geoffreyrose/date-and-number-to-words/main.yml?branch=static-analysis&style=flat-square)](https://github.com/geoffreyrose/date-and-number-to-words/actions?query=branch%3Amain)
 [![License](https://img.shields.io/github/license/geoffreyrose/date-and-number-to-words?style=flat-square)](https://github.com/geoffreyrose/date-and-number-to-words/blob/main/License)
 </div>
 
@@ -62,6 +61,10 @@ $carbon = Carbon::create(2023, 4, 1);
 
 $words->words($carbon, 'Do of M, Y');
 // first of April, two thousand twenty-three
+
+// You can escape the format string as well
+$words->words($carbon, 'Do of M, \Y');
+// first of April, Y
 ```
 
 #### Formats
@@ -73,12 +76,15 @@ Mo  :  Ordinal Month - month($month, true)
 M   :  Month - month($month)
 Do  :  Ordinal Day - day($day, true)
 D   :  Day - day($day)
-Ho  :  Ordinal Hour - hour($hour, true)
-H   :  Hour - hour($hour)
+Ho  :  (24 Hour) Ordinal Hour - hour($hour, true)
+H   :  (24 Hour) Hour - hour($hour)
+ho  :  (12 Hour) Ordinal Hour - hour($hour, true, false)
+h   :  (12 Hour) Hour - hour($hour, twentyFour: false)
 Io  :  Ordinal Minute - minute($minute, true)
 I   :  Minute - minute($minute)
 So  :  Ordinal Second - second($second, true)
 S   :  Second - second($second)
+A   :  AM / PM
 ```
 
 ### Year to Words
@@ -139,7 +145,7 @@ $words->day(7);
 ### Hour to Words
 
 ```php
-public function hour(int|Carbon|DateTime $hour, bool $ordinal = false): string
+public function hour(int|Carbon|DateTime $hour, bool $ordinal = false, bool $twentyFour = true): string
 
 $words = new DateAndNumberToWords();
 
@@ -148,6 +154,10 @@ $words->hour(7, true);
 
 $words->hour(7);
 // seven
+
+$date = Carbon::now()->setHour(13);
+$words->hour($date, twentyFour: false); // one
+$words->hour($date); // thirteen
 ```
 
 ### Minute to Words
@@ -225,4 +235,26 @@ $words = new DateAndNumberToWords();
 
 $words->setLanguage('en');
 
+```
+
+
+### Testing
+
+```bash
+# Run tests
+./vendor/bin/phpunit
+
+herd coverage ./vendor/bin/phpunit 
+```
+
+### Linting
+
+```bash
+./vendor/bin/pint
+```
+
+### Static Analysis
+
+```bash
+./vendor/bin/phpstan analyse src --memory-limit 2G
 ```

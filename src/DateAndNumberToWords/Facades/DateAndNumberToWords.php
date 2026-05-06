@@ -2,7 +2,9 @@
 
 namespace DateAndNumberToWords\Facades;
 
-class DateAndNumberToWords extends \Illuminate\Support\Facades\Facade
+use Illuminate\Support\Facades\Facade;
+
+class DateAndNumberToWords extends Facade
 {
     protected static function getFacadeAccessor()
     {

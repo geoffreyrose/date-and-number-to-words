@@ -19,5 +19,9 @@
     <include>
       <directory suffix=".php">src/</directory>
     </include>
+    <exclude>
+      <directory suffix=".php">src/DateAndNumberToWords/Facades</directory>
+      <file>src/DateAndNumberToWords/ServiceProvider.php</file>
+    </exclude>
   </source>
 </phpunit>

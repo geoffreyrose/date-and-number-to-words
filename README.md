@@ -15,7 +15,7 @@ Numbers and each part of the date can additionally be turned into ordinal words.
 
 ### Requirements
 * [Carbon](http://carbon.nesbot.com/)
-* PHP 8.0+
+* PHP 8.1+
 
 ### Usage
 

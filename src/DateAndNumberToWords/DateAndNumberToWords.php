@@ -70,32 +70,60 @@ class DateAndNumberToWords
     public function words(Carbon|DateTime $date, string $format): string
     {
 
-        if(strlen($format) === 0 || strlen($format) > 1024) {
+        if (strlen($format) === 0 || strlen($format) > 1024) {
             throw new InvalidFormatException('Format string must be at least 1 character long and not longer than 1024 characters');
         }
 
-        $formatArray = (array) preg_split('/(\W)/', $format, -1, PREG_SPLIT_DELIM_CAPTURE);
         $string = '';
 
-        foreach ($formatArray as $part) {
-            match ($part) {
-                'Yo' => $string .= $this->year($date, true),
-                'Y' => $string .= $this->year($date),
-                'Mo' => $string .= $this->month($date, true),
-                'M' => $string .= $this->month($date),
-                'Do' => $string .= $this->day($date, true),
-                'D' => $string .= $this->day($date),
-                'Ho' => $string .= $this->hour($date, true),
-                'H' => $string .= $this->hour($date),
-                'ho' => $string .= $this->hour($date, true, false),
-                'h' => $string .= $this->hour($date, twentyFour: false),
-                'Io' => $string .= $this->minute($date, true),
-                'I' => $string .= $this->minute($date),
-                'So' => $string .= $this->second($date, true),
-                'S' => $string .= $this->second($date),
-                'A' => $string .= $this->ampm($date),
-                default => $string .= $part,
-            };
+        $oneFormats = ['Y', 'M', 'D', 'H', 'h', 'I', 'S', 'A'];
+        $twoFormats = ['Yo', 'Mo', 'Do', 'Ho', 'ho', 'Io', 'So'];
+        $i = 0;
+        $len = strlen($format);
+        while ($i < $len) {
+            $two = substr($format, $i, 2); // peek at two chars
+            $one = $format[$i];
+
+            if ($one === '\\') {
+                if ($i + 1 < $len) {
+                    $string .= $format[$i + 1];
+                } else {
+                    $string .= $one;
+                }
+                $i += 2;
+
+                continue;
+            }
+
+            if (in_array($two, $twoFormats) || in_array($one, $oneFormats)) {
+                if (in_array($two, $twoFormats)) {
+                    match ($two) {
+                        'Yo' => $string .= $this->year($date, true),
+                        'Mo' => $string .= $this->month($date, true),
+                        'Do' => $string .= $this->day($date, true),
+                        'Ho' => $string .= $this->hour($date, true),
+                        'ho' => $string .= $this->hour($date, true, false),
+                        'Io' => $string .= $this->minute($date, true),
+                        'So' => $string .= $this->second($date, true),
+                    };
+                    $i++;
+                } elseif (in_array($one, $oneFormats)) {
+                    match ($one) {
+                        'Y' => $string .= $this->year($date),
+                        'M' => $string .= $this->month($date),
+                        'D' => $string .= $this->day($date),
+                        'H' => $string .= $this->hour($date),
+                        'h' => $string .= $this->hour($date, twentyFour: false),
+                        'I' => $string .= $this->minute($date),
+                        'S' => $string .= $this->second($date),
+                        'A' => $string .= $this->ampm($date),
+                    };
+                }
+            } else {
+                $string .= $one;
+            }
+
+            $i++;
         }
 
         return $string;

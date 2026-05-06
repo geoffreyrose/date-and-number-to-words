@@ -61,6 +61,10 @@ $carbon = Carbon::create(2023, 4, 1);
 
 $words->words($carbon, 'Do of M, Y');
 // first of April, two thousand twenty-three
+
+// You can escape the format string as well
+$words->words($carbon, 'Do of M, \Y');
+// first of April, Y
 ```
 
 #### Formats
@@ -150,6 +154,10 @@ $words->hour(7, true);
 
 $words->hour(7);
 // seven
+
+$date = Carbon::now()->setHour(13);
+$words->hour($date, twentyFour: false); // one
+$words->hour($date); // thirteen
 ```
 
 ### Minute to Words

@@ -26,7 +26,7 @@ jobs:
             coverage: 'false'
             phpunit-version: '11'
           - php-version: '8.4'
-            coverage: 'false'
+            coverage: 'true'
             phpunit-version: '11'
           - php-version: '8.5'
             coverage: 'false'

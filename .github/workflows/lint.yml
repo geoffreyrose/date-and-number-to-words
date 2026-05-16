@@ -1,4 +1,7 @@
 name: Fix Code Style
+permissions:
+  contents: read
+  pull-requests: write
 
 on:
   push: # Runs on push events
